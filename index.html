@@ -39,6 +39,7 @@
         <script src="data/FishingGroungs_Mombasa_7.js"></script>
         <script src="data/FishingGroungs_TanaRiver_8.js"></script>
         <script src="data/DolphineSites_9.js"></script>
+        <script src="data/MarineParks_10.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -58,7 +59,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-4.661684245308923,38.37855447089991],[-1.8925420846004322,43.70610740315477]]);
+        }).fitBounds([[-6.951741763469155,36.05721651216091],[-1.4134574420521737,46.712322376670635]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -653,6 +654,68 @@
         });
         bounds_group.addLayer(layer_DolphineSites_9);
         map.addLayer(layer_DolphineSites_9);
+        function pop_MarineParks_10(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">AREA</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NAME</th>\
+                        <td>' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GAZETTED</th>\
+                        <td>' + (feature.properties['GAZETTED'] !== null ? autolinker.link(feature.properties['GAZETTED'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MarineParks_10_0() {
+            return {
+                pane: 'pane_MarineParks_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MarineParks_10');
+        map.getPane('pane_MarineParks_10').style.zIndex = 410;
+        map.getPane('pane_MarineParks_10').style['mix-blend-mode'] = 'normal';
+        var layer_MarineParks_10 = new L.geoJson(json_MarineParks_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MarineParks_10',
+            layerName: 'layer_MarineParks_10',
+            pane: 'pane_MarineParks_10',
+            onEachFeature: pop_MarineParks_10,
+            style: style_MarineParks_10_0,
+        });
+        bounds_group.addLayer(layer_MarineParks_10);
+        map.addLayer(layer_MarineParks_10);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -685,7 +748,7 @@
             };
             abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/DolphineSites_9.png" /> Dolphine Sites': layer_DolphineSites_9,'<img src="legend/FishingGroungs_TanaRiver_8.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_8,'<img src="legend/FishingGroungs_Mombasa_7.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_7,'<img src="legend/FishingGroungs_Lamu_6.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_6,'<img src="legend/FishingGroungs_Kwale_5.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_5,'<img src="legend/MarineLandingSites_4.png" /> Marine Landing Sites': layer_MarineLandingSites_4,'<img src="legend/MarineRiparianCounties_3.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_3,'<img src="legend/CoralReef_2.png" /> Coral Reef': layer_CoralReef_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/MarineParks_10.png" /> Marine Parks': layer_MarineParks_10,'<img src="legend/DolphineSites_9.png" /> Dolphine Sites': layer_DolphineSites_9,'<img src="legend/FishingGroungs_TanaRiver_8.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_8,'<img src="legend/FishingGroungs_Mombasa_7.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_7,'<img src="legend/FishingGroungs_Lamu_6.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_6,'<img src="legend/FishingGroungs_Kwale_5.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_5,'<img src="legend/MarineLandingSites_4.png" /> Marine Landing Sites': layer_MarineLandingSites_4,'<img src="legend/MarineRiparianCounties_3.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_3,'<img src="legend/CoralReef_2.png" /> Coral Reef': layer_CoralReef_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_JCMACOMBINED_1,
