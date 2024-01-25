@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         #map {
             width: 1620px;
@@ -31,9 +32,11 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
         <script src="js/leaflet-search.js"></script>
         <script src="data/JCMACOMBINED_1.js"></script>
         <script src="data/MarineRiparianCounties_2.js"></script>
+        <script src="data/MarineLandingSites_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -49,14 +52,27 @@
                 fillOpacity: 1
               });
             }
+            highlightLayer.openPopup();
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-4.883940007315845,37.33889140640082],[-2.114797846607358,42.66644433865568]]);
+        }).fitBounds([[-4.976134990074277,37.61218367672048],[-2.206992829365786,42.93973660897534]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -79,12 +95,20 @@
                     for (i in e.target._eventParents) {
                         e.target._eventParents[i].resetStyle(e.target);
                     }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
                 },
                 mouseover: highlightFeature,
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Coverage'] !== null ? autolinker.link(feature.properties['Coverage'].toLocaleString()) : '') + '</td>\
@@ -104,7 +128,7 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(190,178,151,1.0)',
+                fillColor: 'rgba(253,191,111,1.0)',
                 interactive: true,
             }
         }
@@ -128,12 +152,20 @@
                     for (i in e.target._eventParents) {
                         e.target._eventParents[i].resetStyle(e.target);
                     }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
                 },
                 mouseover: highlightFeature,
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">county</th>\
+                        <td>' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['pop 2009'] !== null ? autolinker.link(feature.properties['pop 2009'].toLocaleString()) : '') + '</td>\
@@ -171,6 +203,72 @@
         });
         bounds_group.addLayer(layer_MarineRiparianCounties_2);
         map.addLayer(layer_MarineRiparianCounties_2);
+        function pop_MarineLandingSites_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['County'] !== null ? autolinker.link(feature.properties['County'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LandingSit'] !== null ? autolinker.link(feature.properties['LandingSit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MarineLandingSites_3_0() {
+            return {
+                pane: 'pane_MarineLandingSites_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MarineLandingSites_3');
+        map.getPane('pane_MarineLandingSites_3').style.zIndex = 403;
+        map.getPane('pane_MarineLandingSites_3').style['mix-blend-mode'] = 'normal';
+        var layer_MarineLandingSites_3 = new L.geoJson(json_MarineLandingSites_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MarineLandingSites_3',
+            layerName: 'layer_MarineLandingSites_3',
+            pane: 'pane_MarineLandingSites_3',
+            onEachFeature: pop_MarineLandingSites_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_MarineLandingSites_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_MarineLandingSites_3);
+        map.addLayer(layer_MarineLandingSites_3);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
             position: 'topleft',
@@ -182,7 +280,7 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/MarineRiparianCounties_2.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/MarineLandingSites_3.png" /> Marine Landing Sites': layer_MarineLandingSites_3,'<img src="legend/MarineRiparianCounties_2.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_JCMACOMBINED_1,
