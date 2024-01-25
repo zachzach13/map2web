@@ -9,8 +9,6 @@
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
-        <link rel="stylesheet" href="css/filter.css">
-<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         #map {
             width: 1620px;
@@ -32,9 +30,6 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-search.js"></script>
-        <script src="js/tailDT.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/wNumb.js"></script>
         <script src="data/JCMACOMBINED_1.js"></script>
         <script src="data/CoralReef_2.js"></script>
         <script src="data/MarineRiparianCounties_3.js"></script>
@@ -43,6 +38,7 @@
         <script src="data/FishingGroungs_Lamu_6.js"></script>
         <script src="data/FishingGroungs_Mombasa_7.js"></script>
         <script src="data/FishingGroungs_TanaRiver_8.js"></script>
+        <script src="data/DolphineSites_9.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -62,7 +58,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-5.149000582746328,38.7967245712685],[-2.379858422037837,44.12427750352336]]);
+        }).fitBounds([[-4.661684245308923,38.37855447089991],[-1.8925420846004322,43.70610740315477]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -176,7 +172,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_CoralReef_2');
@@ -184,7 +180,7 @@
         map.getPane('pane_CoralReef_2').style['mix-blend-mode'] = 'normal';
         var layer_CoralReef_2 = new L.geoJson(json_CoralReef_2, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_CoralReef_2',
             layerName: 'layer_CoralReef_2',
             pane: 'pane_CoralReef_2',
@@ -598,6 +594,65 @@
         });
         bounds_group.addLayer(layer_FishingGroungs_TanaRiver_8);
         map.addLayer(layer_FishingGroungs_TanaRiver_8);
+        function pop_DolphineSites_9(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CLASS'] !== null ? autolinker.link(feature.properties['CLASS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DolphineSites_9_0() {
+            return {
+                pane: 'pane_DolphineSites_9',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/DolphineSites_9.svg',
+            iconSize: [15.200000000000006, 15.200000000000006]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DolphineSites_9');
+        map.getPane('pane_DolphineSites_9').style.zIndex = 409;
+        map.getPane('pane_DolphineSites_9').style['mix-blend-mode'] = 'normal';
+        var layer_DolphineSites_9 = new L.geoJson(json_DolphineSites_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DolphineSites_9',
+            layerName: 'layer_DolphineSites_9',
+            pane: 'pane_DolphineSites_9',
+            onEachFeature: pop_DolphineSites_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_DolphineSites_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_DolphineSites_9);
+        map.addLayer(layer_DolphineSites_9);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -630,7 +685,7 @@
             };
             abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/FishingGroungs_TanaRiver_8.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_8,'<img src="legend/FishingGroungs_Mombasa_7.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_7,'<img src="legend/FishingGroungs_Lamu_6.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_6,'<img src="legend/FishingGroungs_Kwale_5.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_5,'<img src="legend/MarineLandingSites_4.png" /> Marine Landing Sites': layer_MarineLandingSites_4,'<img src="legend/MarineRiparianCounties_3.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_3,'<img src="legend/CoralReef_2.png" /> Coral Reef': layer_CoralReef_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/DolphineSites_9.png" /> Dolphine Sites': layer_DolphineSites_9,'<img src="legend/FishingGroungs_TanaRiver_8.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_8,'<img src="legend/FishingGroungs_Mombasa_7.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_7,'<img src="legend/FishingGroungs_Lamu_6.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_6,'<img src="legend/FishingGroungs_Kwale_5.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_5,'<img src="legend/MarineLandingSites_4.png" /> Marine Landing Sites': layer_MarineLandingSites_4,'<img src="legend/MarineRiparianCounties_3.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_3,'<img src="legend/CoralReef_2.png" /> Coral Reef': layer_CoralReef_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_JCMACOMBINED_1,
@@ -639,149 +694,6 @@
             propertyName: 'Name'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
-        var mapDiv = document.getElementById('map');
-        var row = document.createElement('div');
-        row.className="row";
-        row.id="all";
-        row.style.height = "100%";
-        var col1 = document.createElement('div');
-        col1.className="col9";
-        col1.id = "mapWindow";
-        col1.style.height = "99%";
-        col1.style.width = "80%";
-        col1.style.display = "inline-block";
-        var col2 = document.createElement('div');
-        col2.className="col3";
-        col2.id = "menu";
-        col2.style.display = "inline-block";
-        mapDiv.parentNode.insertBefore(row, mapDiv);
-        document.getElementById("all").appendChild(col1);
-        document.getElementById("all").appendChild(col2);
-        col1.appendChild(mapDiv)
-        var Filters = {"county": "str"};
-        function filterFunc() {
-          map.eachLayer(function(lyr){
-          if ("options" in lyr && "dataVar" in lyr["options"]){
-            features = this[lyr["options"]["dataVar"]].features.slice(0);
-            try{
-              for (key in Filters){
-                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
-                if (Filters[key] == "str" || Filters[key] == "bool"){
-                  var selection = [];
-                  var options = document.getElementById("sel_" + keyS).options
-                  for (var i=0; i < options.length; i++) {
-                    if (options[i].selected) selection.push(options[i].value);
-                  }
-                    try{
-                      if (key in features[0].properties){
-                        for (i = features.length - 1;
-                          i >= 0; --i){
-                          if (selection.indexOf(
-                          features[i].properties[key])<0
-                          && selection.length>0) {
-                          features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                  }
-                }
-                if (Filters[key] == "int"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (parseInt(features[i].properties[key])
-                          < sliderVals[0]
-                          || parseInt(features[i].properties[key])
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "real"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (features[i].properties[key]
-                          < sliderVals[0]
-                          || features[i].properties[key]
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "date"
-                  || Filters[key] == "datetime"
-                  || Filters[key] == "time"){
-                  try{
-                    if (key in features[0].properties){
-                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
-                      startdate = document.getElementById("dat_" +
-                        HTMLkey + "_date1").value.replace(" ", "T");
-                      enddate = document.getElementById("dat_" +
-                        HTMLkey + "_date2").value.replace(" ", "T");
-                      for (i = features.length - 1; i >= 0; --i){
-                        if (features[i].properties[key] < startdate
-                          || features[i].properties[key] > enddate){
-                          features.splice(i,1);
-                        }
-                      }
-                    }
-                  } catch(err){
-                  }
-                }
-              }
-            } catch(err){
-            }
-          this[lyr["options"]["layerName"]].clearLayers();
-          this[lyr["options"]["layerName"]].addData(features);
-          }
-          })
-        }
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_county = document.createElement('div');
-            div_county.id = "div_county";
-            div_county.className= "filterselect";
-            document.getElementById("menu").appendChild(div_county);
-            sel_county = document.createElement('select');
-            sel_county.multiple = true;
-            sel_county.size = 5;
-            sel_county.id = "sel_county";
-            var county_options_str = "<option value='' unselected></option>";
-            sel_county.onchange = function(){filterFunc()};
-            county_options_str  += '<option value="Kilifi">Kilifi</option>';
-            county_options_str  += '<option value="Kwale">Kwale</option>';
-            county_options_str  += '<option value="Lamu">Lamu</option>';
-            county_options_str  += '<option value="Mombasa">Mombasa</option>';
-            county_options_str  += '<option value="Tana River">Tana River</option>';
-            sel_county.innerHTML = county_options_str;
-            div_county.appendChild(sel_county);
-            var lab_county = document.createElement('div');
-            lab_county.innerHTML = 'county';
-            lab_county.className = 'filterlabel';
-            div_county.appendChild(lab_county);
-            var reset_county = document.createElement('div');
-            reset_county.innerHTML = 'clear filter';
-            reset_county.className = 'filterlabel';
-            reset_county.onclick = function() {
-                var options = document.getElementById("sel_county").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_county.appendChild(reset_county);
         </script>
     </body>
 </html>
