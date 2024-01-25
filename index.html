@@ -9,15 +9,15 @@
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
-        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         #map {
             width: 1620px;
             height: 843px;
         }
         </style>
-        <title></title>
+        <title>KEMFSED_JCMA Webmap</title>
     </head>
     <body>
         <div id="map">
@@ -31,16 +31,18 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-        <script src="js/leaflet-measure.js"></script>
         <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
         <script src="data/JCMACOMBINED_1.js"></script>
-        <script src="data/MarineRiparianCounties_2.js"></script>
-        <script src="data/MarineLandingSites_3.js"></script>
-        <script src="data/FishingGroungs_Kwale_4.js"></script>
-        <script src="data/FishingGroungs_Lamu_5.js"></script>
-        <script src="data/FishingGroungs_Mombasa_6.js"></script>
-        <script src="data/FishingGroungs_TanaRiver_7.js"></script>
+        <script src="data/CoralReef_2.js"></script>
+        <script src="data/MarineRiparianCounties_3.js"></script>
+        <script src="data/MarineLandingSites_4.js"></script>
+        <script src="data/FishingGroungs_Kwale_5.js"></script>
+        <script src="data/FishingGroungs_Lamu_6.js"></script>
+        <script src="data/FishingGroungs_Mombasa_7.js"></script>
+        <script src="data/FishingGroungs_TanaRiver_8.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -48,11 +50,11 @@
 
             if (e.target.feature.geometry.type === 'LineString') {
               highlightLayer.setStyle({
-                color: '#ffff00',
+                color: '#ff7f00',
               });
             } else {
               highlightLayer.setStyle({
-                fillColor: '#ffff00',
+                fillColor: '#ff7f00',
                 fillOpacity: 1
               });
             }
@@ -60,23 +62,11 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-4.976134990074277,37.61218367672048],[-2.206992829365786,42.93973660897534]]);
+        }).fitBounds([[-5.149000582746328,38.7967245712685],[-2.379858422037837,44.12427750352336]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
-        var measureControl = new L.Control.Measure({
-            position: 'topleft',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares'
-        });
-        measureControl.addTo(map);
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -111,11 +101,10 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Name</th>\
-                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Coverage'] !== null ? autolinker.link(feature.properties['Coverage'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Coverage</strong><br />' + (feature.properties['Coverage'] !== null ? autolinker.link(feature.properties['Coverage'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -150,130 +139,7 @@
         });
         bounds_group.addLayer(layer_JCMACOMBINED_1);
         map.addLayer(layer_JCMACOMBINED_1);
-        function pop_MarineRiparianCounties_2(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">county</th>\
-                        <td>' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['pop 2009'] !== null ? autolinker.link(feature.properties['pop 2009'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_MarineRiparianCounties_2_0() {
-            return {
-                pane: 'pane_MarineRiparianCounties_2',
-                opacity: 1,
-                color: 'rgba(82,82,82,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(204,204,204,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_MarineRiparianCounties_2');
-        map.getPane('pane_MarineRiparianCounties_2').style.zIndex = 402;
-        map.getPane('pane_MarineRiparianCounties_2').style['mix-blend-mode'] = 'normal';
-        var layer_MarineRiparianCounties_2 = new L.geoJson(json_MarineRiparianCounties_2, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_MarineRiparianCounties_2',
-            layerName: 'layer_MarineRiparianCounties_2',
-            pane: 'pane_MarineRiparianCounties_2',
-            onEachFeature: pop_MarineRiparianCounties_2,
-            style: style_MarineRiparianCounties_2_0,
-        });
-        bounds_group.addLayer(layer_MarineRiparianCounties_2);
-        map.addLayer(layer_MarineRiparianCounties_2);
-        function pop_MarineLandingSites_3(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['County'] !== null ? autolinker.link(feature.properties['County'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['LandingSit'] !== null ? autolinker.link(feature.properties['LandingSit'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_MarineLandingSites_3_0() {
-            return {
-                pane: 'pane_MarineLandingSites_3',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(255,255,255,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_MarineLandingSites_3');
-        map.getPane('pane_MarineLandingSites_3').style.zIndex = 403;
-        map.getPane('pane_MarineLandingSites_3').style['mix-blend-mode'] = 'normal';
-        var layer_MarineLandingSites_3 = new L.geoJson(json_MarineLandingSites_3, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_MarineLandingSites_3',
-            layerName: 'layer_MarineLandingSites_3',
-            pane: 'pane_MarineLandingSites_3',
-            onEachFeature: pop_MarineLandingSites_3,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_MarineLandingSites_3_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_MarineLandingSites_3);
-        map.addLayer(layer_MarineLandingSites_3);
-        function pop_FishingGroungs_Kwale_4(feature, layer) {
+        function pop_CoralReef_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -294,30 +160,216 @@
                         <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Gear'] !== null ? autolinker.link(feature.properties['Gear'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Fishing_Gr'] !== null ? autolinker.link(feature.properties['Fishing_Gr'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Season'] !== null ? autolinker.link(feature.properties['Season'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['OUTCROP_RO'] !== null ? autolinker.link(feature.properties['OUTCROP_RO'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_FishingGroungs_Kwale_4_0() {
+        function style_CoralReef_2_0() {
             return {
-                pane: 'pane_FishingGroungs_Kwale_4',
+                pane: 'pane_CoralReef_2',
+                opacity: 1,
+                color: 'rgba(231,113,72,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_CoralReef_2');
+        map.getPane('pane_CoralReef_2').style.zIndex = 402;
+        map.getPane('pane_CoralReef_2').style['mix-blend-mode'] = 'normal';
+        var layer_CoralReef_2 = new L.geoJson(json_CoralReef_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_CoralReef_2',
+            layerName: 'layer_CoralReef_2',
+            pane: 'pane_CoralReef_2',
+            onEachFeature: pop_CoralReef_2,
+            style: style_CoralReef_2_0,
+        });
+        bounds_group.addLayer(layer_CoralReef_2);
+        map.addLayer(layer_CoralReef_2);
+        function pop_MarineRiparianCounties_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>county</strong><br />' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>pop 2009</strong><br />' + (feature.properties['pop 2009'] !== null ? autolinker.link(feature.properties['pop 2009'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MarineRiparianCounties_3_0() {
+            return {
+                pane: 'pane_MarineRiparianCounties_3',
+                opacity: 1,
+                color: 'rgba(82,82,82,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,204,204,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MarineRiparianCounties_3');
+        map.getPane('pane_MarineRiparianCounties_3').style.zIndex = 403;
+        map.getPane('pane_MarineRiparianCounties_3').style['mix-blend-mode'] = 'normal';
+        var layer_MarineRiparianCounties_3 = new L.geoJson(json_MarineRiparianCounties_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MarineRiparianCounties_3',
+            layerName: 'layer_MarineRiparianCounties_3',
+            pane: 'pane_MarineRiparianCounties_3',
+            onEachFeature: pop_MarineRiparianCounties_3,
+            style: style_MarineRiparianCounties_3_0,
+        });
+        bounds_group.addLayer(layer_MarineRiparianCounties_3);
+        map.addLayer(layer_MarineRiparianCounties_3);
+        function pop_MarineLandingSites_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">County</th>\
+                        <td>' + (feature.properties['County'] !== null ? autolinker.link(feature.properties['County'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BMU</th>\
+                        <td>' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LandingSit</th>\
+                        <td>' + (feature.properties['LandingSit'] !== null ? autolinker.link(feature.properties['LandingSit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MarineLandingSites_4_0() {
+            return {
+                pane: 'pane_MarineLandingSites_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MarineLandingSites_4');
+        map.getPane('pane_MarineLandingSites_4').style.zIndex = 404;
+        map.getPane('pane_MarineLandingSites_4').style['mix-blend-mode'] = 'normal';
+        var layer_MarineLandingSites_4 = new L.geoJson(json_MarineLandingSites_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MarineLandingSites_4',
+            layerName: 'layer_MarineLandingSites_4',
+            pane: 'pane_MarineLandingSites_4',
+            onEachFeature: pop_MarineLandingSites_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_MarineLandingSites_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_MarineLandingSites_4);
+        map.addLayer(layer_MarineLandingSites_4);
+        function pop_FishingGroungs_Kwale_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Latitude</th>\
+                        <td>' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Longitude</th>\
+                        <td>' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BMU</th>\
+                        <td>' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Gear</th>\
+                        <td>' + (feature.properties['Gear'] !== null ? autolinker.link(feature.properties['Gear'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fishing_Gr</th>\
+                        <td>' + (feature.properties['Fishing_Gr'] !== null ? autolinker.link(feature.properties['Fishing_Gr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Season</th>\
+                        <td>' + (feature.properties['Season'] !== null ? autolinker.link(feature.properties['Season'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_FishingGroungs_Kwale_5_0() {
+            return {
+                pane: 'pane_FishingGroungs_Kwale_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -331,27 +383,27 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_FishingGroungs_Kwale_4');
-        map.getPane('pane_FishingGroungs_Kwale_4').style.zIndex = 404;
-        map.getPane('pane_FishingGroungs_Kwale_4').style['mix-blend-mode'] = 'normal';
-        var layer_FishingGroungs_Kwale_4 = new L.geoJson(json_FishingGroungs_Kwale_4, {
+        map.createPane('pane_FishingGroungs_Kwale_5');
+        map.getPane('pane_FishingGroungs_Kwale_5').style.zIndex = 405;
+        map.getPane('pane_FishingGroungs_Kwale_5').style['mix-blend-mode'] = 'normal';
+        var layer_FishingGroungs_Kwale_5 = new L.geoJson(json_FishingGroungs_Kwale_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_FishingGroungs_Kwale_4',
-            layerName: 'layer_FishingGroungs_Kwale_4',
-            pane: 'pane_FishingGroungs_Kwale_4',
-            onEachFeature: pop_FishingGroungs_Kwale_4,
+            dataVar: 'json_FishingGroungs_Kwale_5',
+            layerName: 'layer_FishingGroungs_Kwale_5',
+            pane: 'pane_FishingGroungs_Kwale_5',
+            onEachFeature: pop_FishingGroungs_Kwale_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_FishingGroungs_Kwale_4_0(feature));
+                return L.circleMarker(latlng, style_FishingGroungs_Kwale_5_0(feature));
             },
         });
-        bounds_group.addLayer(layer_FishingGroungs_Kwale_4);
-        map.addLayer(layer_FishingGroungs_Kwale_4);
-        function pop_FishingGroungs_Lamu_5(feature, layer) {
+        bounds_group.addLayer(layer_FishingGroungs_Kwale_5);
+        map.addLayer(layer_FishingGroungs_Kwale_5);
+        function pop_FishingGroungs_Lamu_6(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -378,9 +430,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_FishingGroungs_Lamu_5_0() {
+        function style_FishingGroungs_Lamu_6_0() {
             return {
-                pane: 'pane_FishingGroungs_Lamu_5',
+                pane: 'pane_FishingGroungs_Lamu_6',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -393,21 +445,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_FishingGroungs_Lamu_5');
-        map.getPane('pane_FishingGroungs_Lamu_5').style.zIndex = 405;
-        map.getPane('pane_FishingGroungs_Lamu_5').style['mix-blend-mode'] = 'normal';
-        var layer_FishingGroungs_Lamu_5 = new L.geoJson(json_FishingGroungs_Lamu_5, {
+        map.createPane('pane_FishingGroungs_Lamu_6');
+        map.getPane('pane_FishingGroungs_Lamu_6').style.zIndex = 406;
+        map.getPane('pane_FishingGroungs_Lamu_6').style['mix-blend-mode'] = 'normal';
+        var layer_FishingGroungs_Lamu_6 = new L.geoJson(json_FishingGroungs_Lamu_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_FishingGroungs_Lamu_5',
-            layerName: 'layer_FishingGroungs_Lamu_5',
-            pane: 'pane_FishingGroungs_Lamu_5',
-            onEachFeature: pop_FishingGroungs_Lamu_5,
-            style: style_FishingGroungs_Lamu_5_0,
+            dataVar: 'json_FishingGroungs_Lamu_6',
+            layerName: 'layer_FishingGroungs_Lamu_6',
+            pane: 'pane_FishingGroungs_Lamu_6',
+            onEachFeature: pop_FishingGroungs_Lamu_6,
+            style: style_FishingGroungs_Lamu_6_0,
         });
-        bounds_group.addLayer(layer_FishingGroungs_Lamu_5);
-        map.addLayer(layer_FishingGroungs_Lamu_5);
-        function pop_FishingGroungs_Mombasa_6(feature, layer) {
+        bounds_group.addLayer(layer_FishingGroungs_Lamu_6);
+        map.addLayer(layer_FishingGroungs_Lamu_6);
+        function pop_FishingGroungs_Mombasa_7(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -425,33 +477,40 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Shape_Leng</th>\
+                        <td>' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Shape_Area</th>\
+                        <td>' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">BMU</th>\
+                        <td>' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Gear_type'] !== null ? autolinker.link(feature.properties['Gear_type'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Gear_type</th>\
+                        <td>' + (feature.properties['Gear_type'] !== null ? autolinker.link(feature.properties['Gear_type'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Ground_typ'] !== null ? autolinker.link(feature.properties['Ground_typ'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Ground_typ</th>\
+                        <td>' + (feature.properties['Ground_typ'] !== null ? autolinker.link(feature.properties['Ground_typ'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">layer</th>\
+                        <td>' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_FishingGroungs_Mombasa_6_0() {
+        function style_FishingGroungs_Mombasa_7_0() {
             return {
-                pane: 'pane_FishingGroungs_Mombasa_6',
+                pane: 'pane_FishingGroungs_Mombasa_7',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -464,21 +523,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_FishingGroungs_Mombasa_6');
-        map.getPane('pane_FishingGroungs_Mombasa_6').style.zIndex = 406;
-        map.getPane('pane_FishingGroungs_Mombasa_6').style['mix-blend-mode'] = 'normal';
-        var layer_FishingGroungs_Mombasa_6 = new L.geoJson(json_FishingGroungs_Mombasa_6, {
+        map.createPane('pane_FishingGroungs_Mombasa_7');
+        map.getPane('pane_FishingGroungs_Mombasa_7').style.zIndex = 407;
+        map.getPane('pane_FishingGroungs_Mombasa_7').style['mix-blend-mode'] = 'normal';
+        var layer_FishingGroungs_Mombasa_7 = new L.geoJson(json_FishingGroungs_Mombasa_7, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_FishingGroungs_Mombasa_6',
-            layerName: 'layer_FishingGroungs_Mombasa_6',
-            pane: 'pane_FishingGroungs_Mombasa_6',
-            onEachFeature: pop_FishingGroungs_Mombasa_6,
-            style: style_FishingGroungs_Mombasa_6_0,
+            dataVar: 'json_FishingGroungs_Mombasa_7',
+            layerName: 'layer_FishingGroungs_Mombasa_7',
+            pane: 'pane_FishingGroungs_Mombasa_7',
+            onEachFeature: pop_FishingGroungs_Mombasa_7,
+            style: style_FishingGroungs_Mombasa_7_0,
         });
-        bounds_group.addLayer(layer_FishingGroungs_Mombasa_6);
-        map.addLayer(layer_FishingGroungs_Mombasa_6);
-        function pop_FishingGroungs_TanaRiver_7(feature, layer) {
+        bounds_group.addLayer(layer_FishingGroungs_Mombasa_7);
+        map.addLayer(layer_FishingGroungs_Mombasa_7);
+        function pop_FishingGroungs_TanaRiver_8(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -496,15 +555,16 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['FID'] !== null ? autolinker.link(feature.properties['FID'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">FID</th>\
+                        <td>' + (feature.properties['FID'] !== null ? autolinker.link(feature.properties['FID'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_FishingGroungs_TanaRiver_7_0() {
+        function style_FishingGroungs_TanaRiver_8_0() {
             return {
-                pane: 'pane_FishingGroungs_TanaRiver_7',
+                pane: 'pane_FishingGroungs_TanaRiver_8',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -518,38 +578,59 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_FishingGroungs_TanaRiver_7');
-        map.getPane('pane_FishingGroungs_TanaRiver_7').style.zIndex = 407;
-        map.getPane('pane_FishingGroungs_TanaRiver_7').style['mix-blend-mode'] = 'normal';
-        var layer_FishingGroungs_TanaRiver_7 = new L.geoJson(json_FishingGroungs_TanaRiver_7, {
+        map.createPane('pane_FishingGroungs_TanaRiver_8');
+        map.getPane('pane_FishingGroungs_TanaRiver_8').style.zIndex = 408;
+        map.getPane('pane_FishingGroungs_TanaRiver_8').style['mix-blend-mode'] = 'normal';
+        var layer_FishingGroungs_TanaRiver_8 = new L.geoJson(json_FishingGroungs_TanaRiver_8, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_FishingGroungs_TanaRiver_7',
-            layerName: 'layer_FishingGroungs_TanaRiver_7',
-            pane: 'pane_FishingGroungs_TanaRiver_7',
-            onEachFeature: pop_FishingGroungs_TanaRiver_7,
+            dataVar: 'json_FishingGroungs_TanaRiver_8',
+            layerName: 'layer_FishingGroungs_TanaRiver_8',
+            pane: 'pane_FishingGroungs_TanaRiver_8',
+            onEachFeature: pop_FishingGroungs_TanaRiver_8,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_FishingGroungs_TanaRiver_7_0(feature));
+                return L.circleMarker(latlng, style_FishingGroungs_TanaRiver_8_0(feature));
             },
         });
-        bounds_group.addLayer(layer_FishingGroungs_TanaRiver_7);
-        map.addLayer(layer_FishingGroungs_TanaRiver_7);
-        var osmGeocoder = new L.Control.Geocoder({
-            collapsed: true,
-            position: 'topleft',
-            text: 'Search',
-            title: 'Testing'
-        }).addTo(map);
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .className += ' fa fa-search';
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .title += 'Search for a place';
+        bounds_group.addLayer(layer_FishingGroungs_TanaRiver_8);
+        map.addLayer(layer_FishingGroungs_TanaRiver_8);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>KEMFSED_JCMA Webmap</h2>';
+            };
+            title.addTo(map);
+            var abstract = new L.Control({'position':'bottomleft'});
+            abstract.onAdd = function (map) {
+                this._div = L.DomUtil.create('div',
+                'leaflet-control abstract');
+                this._div.id = 'abstract'
+                    this._div.setAttribute("onmouseenter", "abstract.show()");
+                    this._div.setAttribute("onmouseleave", "abstract.hide()");
+                    this.hide();
+                    return this._div;
+                };
+                abstract.hide = function () {
+                    this._div.classList.remove("abstractUncollapsed");
+                    this._div.classList.add("abstract");
+                    this._div.innerHTML = 'i'
+                }
+                abstract.show = function () {
+                    this._div.classList.remove("abstract");
+                    this._div.classList.add("abstractUncollapsed");
+                    this._div.innerHTML = 'Explore the dynamic and ecologically rich Joint Co-Management Areas (JCMA) along the Kenyan coast. This web map showcases the boundaries, key points, and vital ecological information, fostering understanding and engagement in sustainable fisheries management and conservation efforts.<br />Keywords: Kenya, Marine, JCMA, Co-Management, Fisheries, Conservation, Ecological, Web Map';
+            };
+            abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/FishingGroungs_TanaRiver_7.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_7,'<img src="legend/FishingGroungs_Mombasa_6.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_6,'<img src="legend/FishingGroungs_Lamu_5.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_5,'<img src="legend/FishingGroungs_Kwale_4.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_4,'<img src="legend/MarineLandingSites_3.png" /> Marine Landing Sites': layer_MarineLandingSites_3,'<img src="legend/MarineRiparianCounties_2.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/FishingGroungs_TanaRiver_8.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_8,'<img src="legend/FishingGroungs_Mombasa_7.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_7,'<img src="legend/FishingGroungs_Lamu_6.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_6,'<img src="legend/FishingGroungs_Kwale_5.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_5,'<img src="legend/MarineLandingSites_4.png" /> Marine Landing Sites': layer_MarineLandingSites_4,'<img src="legend/MarineRiparianCounties_3.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_3,'<img src="legend/CoralReef_2.png" /> Coral Reef': layer_CoralReef_2,'<img src="legend/JCMACOMBINED_1.png" /> JCMA COMBINED': layer_JCMACOMBINED_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_JCMACOMBINED_1,
@@ -558,6 +639,149 @@
             propertyName: 'Name'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"county": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_county = document.createElement('div');
+            div_county.id = "div_county";
+            div_county.className= "filterselect";
+            document.getElementById("menu").appendChild(div_county);
+            sel_county = document.createElement('select');
+            sel_county.multiple = true;
+            sel_county.size = 5;
+            sel_county.id = "sel_county";
+            var county_options_str = "<option value='' unselected></option>";
+            sel_county.onchange = function(){filterFunc()};
+            county_options_str  += '<option value="Kilifi">Kilifi</option>';
+            county_options_str  += '<option value="Kwale">Kwale</option>';
+            county_options_str  += '<option value="Lamu">Lamu</option>';
+            county_options_str  += '<option value="Mombasa">Mombasa</option>';
+            county_options_str  += '<option value="Tana River">Tana River</option>';
+            sel_county.innerHTML = county_options_str;
+            div_county.appendChild(sel_county);
+            var lab_county = document.createElement('div');
+            lab_county.innerHTML = 'county';
+            lab_county.className = 'filterlabel';
+            div_county.appendChild(lab_county);
+            var reset_county = document.createElement('div');
+            reset_county.innerHTML = 'clear filter';
+            reset_county.className = 'filterlabel';
+            reset_county.onclick = function() {
+                var options = document.getElementById("sel_county").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_county.appendChild(reset_county);
         </script>
     </body>
 </html>
