@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         #map {
-            width: 1620px;
+            width: 1505px;
             height: 843px;
         }
         </style>
@@ -24,6 +24,7 @@
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -34,21 +35,19 @@
         <script src="js/tailDT.js"></script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/wNumb.js"></script>
-        <script src="data/BATHYMETRY_1.js"></script>
         <script src="data/FishingGroungs_Lamu_2.js"></script>
         <script src="data/FishingGroungs_Mombasa_3.js"></script>
         <script src="data/FishingGroungs_TanaRiver_4.js"></script>
         <script src="data/FishingGroungs_Kwale_5.js"></script>
-        <script src="data/JCMACOMBINED_6.js"></script>
+        <script src="data/JCMAs_6.js"></script>
         <script src="data/CoralReef_7.js"></script>
         <script src="data/MarineRiparianCounties_8.js"></script>
         <script src="data/DolphineSites_9.js"></script>
         <script src="data/MarineParks_10.js"></script>
         <script src="data/Mangrooves_11.js"></script>
-        <script src="data/CoastRivers_12.js"></script>
-        <script src="data/SandBeaches_13.js"></script>
-        <script src="data/MarineLandingSites_14.js"></script>
-        <script src="data/12nm_ZACH_15.js"></script>
+        <script src="data/BMUs_12.js"></script>
+        <script src="data/MarineLandingSites_13.js"></script>
+        <script src="data/12nm_ZACH_14.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -67,7 +66,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-7.734811251458563,34.60681280962372],[-0.24079980962120473,49.02454231365802]]);
+        }).fitBounds([[-5.00298313250882,37.985449333578664],[-1.5698901450677494,44.12092942885088]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -87,123 +86,15 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function pop_BATHYMETRY_1(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ELEV_MIN'] !== null ? autolinker.link(feature.properties['ELEV_MIN'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ELEV_MAX'] !== null ? autolinker.link(feature.properties['ELEV_MAX'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_BATHYMETRY_1_0(feature) {
-            if (feature.properties['ELEV_MAX'] >= -4750.000000 && feature.properties['ELEV_MAX'] <= -3800.000000 ) {
-                return {
-                pane: 'pane_BATHYMETRY_1',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(8,48,107,1.0)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ELEV_MAX'] >= -3800.000000 && feature.properties['ELEV_MAX'] <= -2850.000000 ) {
-                return {
-                pane: 'pane_BATHYMETRY_1',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(41,121,185,1.0)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ELEV_MAX'] >= -2850.000000 && feature.properties['ELEV_MAX'] <= -1900.000000 ) {
-                return {
-                pane: 'pane_BATHYMETRY_1',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(115,178,216,1.0)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ELEV_MAX'] >= -1900.000000 && feature.properties['ELEV_MAX'] <= -950.000000 ) {
-                return {
-                pane: 'pane_BATHYMETRY_1',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(200,220,240,1.0)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ELEV_MAX'] >= -950.000000 && feature.properties['ELEV_MAX'] <= 0.000000 ) {
-                return {
-                pane: 'pane_BATHYMETRY_1',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(238,246,254,1.0)',
-                interactive: true,
-            }
-            }
-        }
-        map.createPane('pane_BATHYMETRY_1');
-        map.getPane('pane_BATHYMETRY_1').style.zIndex = 401;
-        map.getPane('pane_BATHYMETRY_1').style['mix-blend-mode'] = 'normal';
-        var layer_BATHYMETRY_1 = new L.geoJson(json_BATHYMETRY_1, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_BATHYMETRY_1',
-            layerName: 'layer_BATHYMETRY_1',
-            pane: 'pane_BATHYMETRY_1',
-            onEachFeature: pop_BATHYMETRY_1,
-            style: style_BATHYMETRY_1_0,
-        });
-        bounds_group.addLayer(layer_BATHYMETRY_1);
-        map.addLayer(layer_BATHYMETRY_1);
+        map.createPane('pane_GEBCO2023CLIP_1');
+        map.getPane('pane_GEBCO2023CLIP_1').style.zIndex = 401;
+        var img_GEBCO2023CLIP_1 = 'data/GEBCO2023CLIP_1.png';
+        var img_bounds_GEBCO2023CLIP_1 = [[-4.895833333,39.220833333],[-1.65,45.945833333]];
+        var layer_GEBCO2023CLIP_1 = new L.imageOverlay(img_GEBCO2023CLIP_1,
+                                              img_bounds_GEBCO2023CLIP_1,
+                                              {pane: 'pane_GEBCO2023CLIP_1'});
+        bounds_group.addLayer(layer_GEBCO2023CLIP_1);
+        map.addLayer(layer_GEBCO2023CLIP_1);
         function pop_FishingGroungs_Lamu_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -215,10 +106,8 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -236,7 +125,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,158,23,1.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_FishingGroungs_Lamu_2');
@@ -244,7 +133,7 @@
         map.getPane('pane_FishingGroungs_Lamu_2').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_Lamu_2 = new L.geoJson(json_FishingGroungs_Lamu_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_FishingGroungs_Lamu_2',
             layerName: 'layer_FishingGroungs_Lamu_2',
             pane: 'pane_FishingGroungs_Lamu_2',
@@ -268,28 +157,12 @@
                         <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Shape_Leng</th>\
-                        <td>' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Shape_Area</th>\
-                        <td>' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <th scope="row">BMU</th>\
                         <td>' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Gear_type</th>\
+                        <th scope="row">Gear Used</th>\
                         <td>' + (feature.properties['Gear_type'] !== null ? autolinker.link(feature.properties['Gear_type'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Ground_typ</th>\
-                        <td>' + (feature.properties['Ground_typ'] !== null ? autolinker.link(feature.properties['Ground_typ'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">layer</th>\
-                        <td>' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -307,7 +180,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(183,72,75,1.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_FishingGroungs_Mombasa_3');
@@ -315,7 +188,7 @@
         map.getPane('pane_FishingGroungs_Mombasa_3').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_Mombasa_3 = new L.geoJson(json_FishingGroungs_Mombasa_3, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_FishingGroungs_Mombasa_3',
             layerName: 'layer_FishingGroungs_Mombasa_3',
             pane: 'pane_FishingGroungs_Mombasa_3',
@@ -335,7 +208,7 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">FID</th>\
+                        <th scope="row">Fishing Ground</th>\
                         <td>' + (feature.properties['FID'] !== null ? autolinker.link(feature.properties['FID'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -355,7 +228,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(231,113,72,1.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_FishingGroungs_TanaRiver_4');
@@ -363,7 +236,7 @@
         map.getPane('pane_FishingGroungs_TanaRiver_4').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_TanaRiver_4 = new L.geoJson(json_FishingGroungs_TanaRiver_4, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_FishingGroungs_TanaRiver_4',
             layerName: 'layer_FishingGroungs_TanaRiver_4',
             pane: 'pane_FishingGroungs_TanaRiver_4',
@@ -389,27 +262,19 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">ID</th>\
+                        <th scope="row">Id</th>\
                         <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Latitude</th>\
-                        <td>' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Longitude</th>\
-                        <td>' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">BMU</th>\
                         <td>' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Gear</th>\
+                        <th scope="row">Gear Used</th>\
                         <td>' + (feature.properties['Gear'] !== null ? autolinker.link(feature.properties['Gear'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Fishing_Gr</th>\
+                        <th scope="row">Fishing Ground</th>\
                         <td>' + (feature.properties['Fishing_Gr'] !== null ? autolinker.link(feature.properties['Fishing_Gr'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -433,7 +298,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(232,113,141,1.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_FishingGroungs_Kwale_5');
@@ -441,7 +306,7 @@
         map.getPane('pane_FishingGroungs_Kwale_5').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_Kwale_5 = new L.geoJson(json_FishingGroungs_Kwale_5, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_FishingGroungs_Kwale_5',
             layerName: 'layer_FishingGroungs_Kwale_5',
             pane: 'pane_FishingGroungs_Kwale_5',
@@ -456,7 +321,7 @@
         });
         bounds_group.addLayer(layer_FishingGroungs_Kwale_5);
         map.addLayer(layer_FishingGroungs_Kwale_5);
-        function pop_JCMACOMBINED_6(feature, layer) {
+        function pop_JCMAs_6(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -467,18 +332,20 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2"><strong>Coverage</strong><br />' + (feature.properties['Coverage'] !== null ? autolinker.link(feature.properties['Coverage'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Coverage</th>\
+                        <td>' + (feature.properties['Coverage'] !== null ? autolinker.link(feature.properties['Coverage'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_JCMACOMBINED_6_0() {
+        function style_JCMAs_6_0() {
             return {
-                pane: 'pane_JCMACOMBINED_6',
+                pane: 'pane_JCMAs_6',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -491,20 +358,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_JCMACOMBINED_6');
-        map.getPane('pane_JCMACOMBINED_6').style.zIndex = 406;
-        map.getPane('pane_JCMACOMBINED_6').style['mix-blend-mode'] = 'normal';
-        var layer_JCMACOMBINED_6 = new L.geoJson(json_JCMACOMBINED_6, {
+        map.createPane('pane_JCMAs_6');
+        map.getPane('pane_JCMAs_6').style.zIndex = 406;
+        map.getPane('pane_JCMAs_6').style['mix-blend-mode'] = 'normal';
+        var layer_JCMAs_6 = new L.geoJson(json_JCMAs_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_JCMACOMBINED_6',
-            layerName: 'layer_JCMACOMBINED_6',
-            pane: 'pane_JCMACOMBINED_6',
-            onEachFeature: pop_JCMACOMBINED_6,
-            style: style_JCMACOMBINED_6_0,
+            dataVar: 'json_JCMAs_6',
+            layerName: 'layer_JCMAs_6',
+            pane: 'pane_JCMAs_6',
+            onEachFeature: pop_JCMAs_6,
+            style: style_JCMAs_6_0,
         });
-        bounds_group.addLayer(layer_JCMACOMBINED_6);
-        map.addLayer(layer_JCMACOMBINED_6);
+        bounds_group.addLayer(layer_JCMAs_6);
+        map.addLayer(layer_JCMAs_6);
         function pop_CoralReef_7(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -514,15 +381,6 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['OUTCROP_RO'] !== null ? autolinker.link(feature.properties['OUTCROP_RO'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
         function style_CoralReef_7_0() {
@@ -535,7 +393,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_CoralReef_7');
@@ -543,7 +401,7 @@
         map.getPane('pane_CoralReef_7').style['mix-blend-mode'] = 'normal';
         var layer_CoralReef_7 = new L.geoJson(json_CoralReef_7, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_CoralReef_7',
             layerName: 'layer_CoralReef_7',
             pane: 'pane_CoralReef_7',
@@ -563,10 +421,8 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2"><strong>county</strong><br />' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2"><strong>pop 2009</strong><br />' + (feature.properties['pop 2009'] !== null ? autolinker.link(feature.properties['pop 2009'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">County</th>\
+                        <td>' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -584,7 +440,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(204,204,204,1.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_MarineRiparianCounties_8');
@@ -592,7 +448,7 @@
         map.getPane('pane_MarineRiparianCounties_8').style['mix-blend-mode'] = 'normal';
         var layer_MarineRiparianCounties_8 = new L.geoJson(json_MarineRiparianCounties_8, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_MarineRiparianCounties_8',
             layerName: 'layer_MarineRiparianCounties_8',
             pane: 'pane_MarineRiparianCounties_8',
@@ -613,9 +469,6 @@
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CLASS'] !== null ? autolinker.link(feature.properties['CLASS'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -664,16 +517,12 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">AREA</th>\
+                        <th scope="row">Area</th>\
                         <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">NAME</th>\
+                        <th scope="row">Name</th>\
                         <td>' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">GAZETTED</th>\
-                        <td>' + (feature.properties['GAZETTED'] !== null ? autolinker.link(feature.properties['GAZETTED'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -751,12 +600,6 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NAME_'] !== null ? autolinker.link(feature.properties['NAME_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
         function style_Mangrooves_11_0() {
@@ -771,7 +614,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(178,223,138,1.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_Mangrooves_11');
@@ -779,7 +622,7 @@
         map.getPane('pane_Mangrooves_11').style['mix-blend-mode'] = 'normal';
         var layer_Mangrooves_11 = new L.geoJson(json_Mangrooves_11, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_Mangrooves_11',
             layerName: 'layer_Mangrooves_11',
             pane: 'pane_Mangrooves_11',
@@ -788,124 +631,7 @@
         });
         bounds_group.addLayer(layer_Mangrooves_11);
         map.addLayer(layer_Mangrooves_11);
-        function pop_CoastRivers_12(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_CoastRivers_12_0() {
-            return {
-                pane: 'pane_CoastRivers_12',
-                opacity: 1,
-                color: 'rgba(31,103,180,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 2.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-        }
-        map.createPane('pane_CoastRivers_12');
-        map.getPane('pane_CoastRivers_12').style.zIndex = 412;
-        map.getPane('pane_CoastRivers_12').style['mix-blend-mode'] = 'normal';
-        var layer_CoastRivers_12 = new L.geoJson(json_CoastRivers_12, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_CoastRivers_12',
-            layerName: 'layer_CoastRivers_12',
-            pane: 'pane_CoastRivers_12',
-            onEachFeature: pop_CoastRivers_12,
-            style: style_CoastRivers_12_0,
-        });
-        bounds_group.addLayer(layer_CoastRivers_12);
-        map.addLayer(layer_CoastRivers_12);
-        function pop_SandBeaches_13(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['USERLABEL'] !== null ? autolinker.link(feature.properties['USERLABEL'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CODE1'] !== null ? autolinker.link(feature.properties['CODE1'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CODE2'] !== null ? autolinker.link(feature.properties['CODE2'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CODE3'] !== null ? autolinker.link(feature.properties['CODE3'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['LCCSCODE'] !== null ? autolinker.link(feature.properties['LCCSCODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AREA_SQKM_'] !== null ? autolinker.link(feature.properties['AREA_SQKM_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['IRRIGATED'] !== null ? autolinker.link(feature.properties['IRRIGATED'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CODE1_DESC'] !== null ? autolinker.link(feature.properties['CODE1_DESC'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CODE2_DESC'] !== null ? autolinker.link(feature.properties['CODE2_DESC'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CODE3_DESC'] !== null ? autolinker.link(feature.properties['CODE3_DESC'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_SandBeaches_13_0() {
-            return {
-                pane: 'pane_SandBeaches_13',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(253,191,111,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_SandBeaches_13');
-        map.getPane('pane_SandBeaches_13').style.zIndex = 413;
-        map.getPane('pane_SandBeaches_13').style['mix-blend-mode'] = 'normal';
-        var layer_SandBeaches_13 = new L.geoJson(json_SandBeaches_13, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_SandBeaches_13',
-            layerName: 'layer_SandBeaches_13',
-            pane: 'pane_SandBeaches_13',
-            onEachFeature: pop_SandBeaches_13,
-            style: style_SandBeaches_13_0,
-        });
-        bounds_group.addLayer(layer_SandBeaches_13);
-        map.addLayer(layer_SandBeaches_13);
-        function pop_MarineLandingSites_14(feature, layer) {
+        function pop_BMUs_12(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -920,20 +646,79 @@
                         <td>' + (feature.properties['County'] !== null ? autolinker.link(feature.properties['County'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">BMU</th>\
+                        <th scope="row">Sub County</th>\
+                        <td>' + (feature.properties['Sub County'] !== null ? autolinker.link(feature.properties['Sub County'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BMU Name</th>\
+                        <td>' + (feature.properties['BMU Name'] !== null ? autolinker.link(feature.properties['BMU Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BMUs_12_0() {
+            return {
+                pane: 'pane_BMUs_12',
+                shape: 'triangle',
+                radius: 5.6,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BMUs_12');
+        map.getPane('pane_BMUs_12').style.zIndex = 412;
+        map.getPane('pane_BMUs_12').style['mix-blend-mode'] = 'normal';
+        var layer_BMUs_12 = new L.geoJson(json_BMUs_12, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BMUs_12',
+            layerName: 'layer_BMUs_12',
+            pane: 'pane_BMUs_12',
+            onEachFeature: pop_BMUs_12,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_BMUs_12_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_BMUs_12);
+        map.addLayer(layer_BMUs_12);
+        function pop_MarineLandingSites_13(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">BMU Name</th>\
                         <td>' + (feature.properties['BMU'] !== null ? autolinker.link(feature.properties['BMU'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">LandingSit</th>\
+                        <th scope="row">Landing Site</th>\
                         <td>' + (feature.properties['LandingSit'] !== null ? autolinker.link(feature.properties['LandingSit'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_MarineLandingSites_14_0() {
+        function style_MarineLandingSites_13_0() {
             return {
-                pane: 'pane_MarineLandingSites_14',
+                pane: 'pane_MarineLandingSites_13',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(255,255,255,1.0)',
@@ -947,27 +732,27 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_MarineLandingSites_14');
-        map.getPane('pane_MarineLandingSites_14').style.zIndex = 414;
-        map.getPane('pane_MarineLandingSites_14').style['mix-blend-mode'] = 'normal';
-        var layer_MarineLandingSites_14 = new L.geoJson(json_MarineLandingSites_14, {
+        map.createPane('pane_MarineLandingSites_13');
+        map.getPane('pane_MarineLandingSites_13').style.zIndex = 413;
+        map.getPane('pane_MarineLandingSites_13').style['mix-blend-mode'] = 'normal';
+        var layer_MarineLandingSites_13 = new L.geoJson(json_MarineLandingSites_13, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_MarineLandingSites_14',
-            layerName: 'layer_MarineLandingSites_14',
-            pane: 'pane_MarineLandingSites_14',
-            onEachFeature: pop_MarineLandingSites_14,
+            dataVar: 'json_MarineLandingSites_13',
+            layerName: 'layer_MarineLandingSites_13',
+            pane: 'pane_MarineLandingSites_13',
+            onEachFeature: pop_MarineLandingSites_13,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_MarineLandingSites_14_0(feature));
+                return L.circleMarker(latlng, style_MarineLandingSites_13_0(feature));
             },
         });
-        bounds_group.addLayer(layer_MarineLandingSites_14);
-        map.addLayer(layer_MarineLandingSites_14);
-        function pop_12nm_ZACH_15(feature, layer) {
+        bounds_group.addLayer(layer_MarineLandingSites_13);
+        map.addLayer(layer_MarineLandingSites_13);
+        function pop_12nm_ZACH_14(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -984,9 +769,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_12nm_ZACH_15_0() {
+        function style_12nm_ZACH_14_0() {
             return {
-                pane: 'pane_12nm_ZACH_15',
+                pane: 'pane_12nm_ZACH_14',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -997,20 +782,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_12nm_ZACH_15');
-        map.getPane('pane_12nm_ZACH_15').style.zIndex = 415;
-        map.getPane('pane_12nm_ZACH_15').style['mix-blend-mode'] = 'normal';
-        var layer_12nm_ZACH_15 = new L.geoJson(json_12nm_ZACH_15, {
+        map.createPane('pane_12nm_ZACH_14');
+        map.getPane('pane_12nm_ZACH_14').style.zIndex = 414;
+        map.getPane('pane_12nm_ZACH_14').style['mix-blend-mode'] = 'normal';
+        var layer_12nm_ZACH_14 = new L.geoJson(json_12nm_ZACH_14, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_12nm_ZACH_15',
-            layerName: 'layer_12nm_ZACH_15',
-            pane: 'pane_12nm_ZACH_15',
-            onEachFeature: pop_12nm_ZACH_15,
-            style: style_12nm_ZACH_15_0,
+            dataVar: 'json_12nm_ZACH_14',
+            layerName: 'layer_12nm_ZACH_14',
+            pane: 'pane_12nm_ZACH_14',
+            onEachFeature: pop_12nm_ZACH_14,
+            style: style_12nm_ZACH_14_0,
         });
-        bounds_group.addLayer(layer_12nm_ZACH_15);
-        map.addLayer(layer_12nm_ZACH_15);
+        bounds_group.addLayer(layer_12nm_ZACH_14);
+        map.addLayer(layer_12nm_ZACH_14);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -1043,15 +828,28 @@
             };
             abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/12nm_ZACH_15.png" /> 12nm_ZACH': layer_12nm_ZACH_15,'<img src="legend/MarineLandingSites_14.png" /> Marine Landing Sites': layer_MarineLandingSites_14,'<img src="legend/SandBeaches_13.png" /> Sand Beaches': layer_SandBeaches_13,'<img src="legend/CoastRivers_12.png" /> Coast Rivers': layer_CoastRivers_12,'<img src="legend/Mangrooves_11.png" /> Mangrooves': layer_Mangrooves_11,'<img src="legend/MarineParks_10.png" /> Marine Parks': layer_MarineParks_10,'<img src="legend/DolphineSites_9.png" /> Dolphine Sites': layer_DolphineSites_9,'<img src="legend/MarineRiparianCounties_8.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_8,'<img src="legend/CoralReef_7.png" /> Coral Reef': layer_CoralReef_7,'<img src="legend/JCMACOMBINED_6.png" /> JCMA COMBINED': layer_JCMACOMBINED_6,'<img src="legend/FishingGroungs_Kwale_5.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_5,'<img src="legend/FishingGroungs_TanaRiver_4.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_4,'<img src="legend/FishingGroungs_Mombasa_3.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_3,'<img src="legend/FishingGroungs_Lamu_2.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_2,'BATHYMETRY<br /><table><tr><td style="text-align: center;"><img src="legend/BATHYMETRY_1_475038000.png" /></td><td>-4750 - -3800</td></tr><tr><td style="text-align: center;"><img src="legend/BATHYMETRY_1_380028501.png" /></td><td>-3800 - -2850</td></tr><tr><td style="text-align: center;"><img src="legend/BATHYMETRY_1_285019002.png" /></td><td>-2850 - -1900</td></tr><tr><td style="text-align: center;"><img src="legend/BATHYMETRY_1_19009503.png" /></td><td>-1900 - -950</td></tr><tr><td style="text-align: center;"><img src="legend/BATHYMETRY_1_95004.png" /></td><td>-950 - 0</td></tr></table>': layer_BATHYMETRY_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/12nm_ZACH_14.png" /> 12nm_ZACH': layer_12nm_ZACH_14,'<img src="legend/MarineLandingSites_13.png" /> Marine Landing Sites': layer_MarineLandingSites_13,'<img src="legend/BMUs_12.png" /> BMUs': layer_BMUs_12,'<img src="legend/Mangrooves_11.png" /> Mangrooves': layer_Mangrooves_11,'<img src="legend/MarineParks_10.png" /> Marine Parks': layer_MarineParks_10,'<img src="legend/DolphineSites_9.png" /> Dolphine Sites': layer_DolphineSites_9,'<img src="legend/MarineRiparianCounties_8.png" /> Marine Riparian Counties': layer_MarineRiparianCounties_8,'<img src="legend/CoralReef_7.png" /> Coral Reef': layer_CoralReef_7,'<img src="legend/JCMAs_6.png" /> JCMAs': layer_JCMAs_6,'<img src="legend/FishingGroungs_Kwale_5.png" /> Fishing Groungs_Kwale': layer_FishingGroungs_Kwale_5,'<img src="legend/FishingGroungs_TanaRiver_4.png" /> Fishing Groungs_Tana River': layer_FishingGroungs_TanaRiver_4,'<img src="legend/FishingGroungs_Mombasa_3.png" /> Fishing Groungs_Mombasa': layer_FishingGroungs_Mombasa_3,'<img src="legend/FishingGroungs_Lamu_2.png" /> Fishing Groungs_Lamu': layer_FishingGroungs_Lamu_2,"GEBCO 2023 CLIP": layer_GEBCO2023CLIP_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
         setBounds();
         var i = 0;
-        layer_JCMACOMBINED_6.eachLayer(function(layer) {
+        layer_JCMAs_6.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 13pt; font-family: \'Arial Rounded MT Bold\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_JCMACOMBINED_6'});
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 13pt; font-family: \'Arial Rounded MT Bold\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_JCMAs_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_MarineRiparianCounties_8.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['county'] !== null?String('<div style="color: #323232; font-size: 14pt; font-family: \'BellTopo Sans\', sans-serif;">' + layer.feature.properties['county']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MarineRiparianCounties_8'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
@@ -1077,7 +875,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"id": "int","pop 2009": "int","Name": "str"};
+        var Filters = {"County": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -1165,12 +963,25 @@
           this[lyr["options"]["layerName"]].clearLayers();
           this[lyr["options"]["layerName"]].addData(features);
         var i = 0;
-        layer_JCMACOMBINED_6.eachLayer(function(layer) {
+        layer_JCMAs_6.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 13pt; font-family: \'Arial Rounded MT Bold\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_JCMACOMBINED_6'});
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 13pt; font-family: \'Arial Rounded MT Bold\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_JCMAs_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_MarineRiparianCounties_8.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['county'] !== null?String('<div style="color: #323232; font-size: 14pt; font-family: \'BellTopo Sans\', sans-serif;">' + layer.feature.properties['county']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MarineRiparianCounties_8'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
@@ -1182,830 +993,57 @@
         }
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
-            var div_id = document.createElement("div");
-            div_id.id = "div_id";
-            div_id.className = "slider";
-            document.getElementById("menu").appendChild(div_id);
-            var lab_id = document.createElement('div');
-            lab_id.innerHTML  = 'id: <span id="val_id"></span>';
-            lab_id.className = 'filterlabel';
-            document.getElementById("menu").appendChild(lab_id);
-            var reset_id = document.createElement('div');
-            reset_id.innerHTML = 'clear filter';
-            reset_id.className = 'filterlabel';
-            lab_id.className = 'filterlabel';
-            reset_id.onclick = function() {
-                sel_id.noUiSlider.reset();
-            };
-            document.getElementById("menu").appendChild(reset_id);
-            var sel_id = document.getElementById('div_id');
-            noUiSlider.create(sel_id, {
-                connect: true,
-                start: [NULL, 1],
-                step: 1,
-                format: wNumb({
-                    decimals: 0,
-                    }),
-                range: {
-                min: NULL,
-                max: 1
-                }
-            });
-            sel_id.noUiSlider.on('update', function (values) {
-            filterVals =[];
-            for (value in values){
-            filterVals.push(parseInt(value))
-            }
-            val_id = document.getElementById('val_id');
-            val_id.innerHTML = values.join(' - ');
-                filterFunc()
-            });
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_pop2009 = document.createElement("div");
-            div_pop2009.id = "div_pop2009";
-            div_pop2009.className = "slider";
-            document.getElementById("menu").appendChild(div_pop2009);
-            var lab_pop2009 = document.createElement('div');
-            lab_pop2009.innerHTML  = 'pop 2009: <span id="val_pop2009"></span>';
-            lab_pop2009.className = 'filterlabel';
-            document.getElementById("menu").appendChild(lab_pop2009);
-            var reset_pop2009 = document.createElement('div');
-            reset_pop2009.innerHTML = 'clear filter';
-            reset_pop2009.className = 'filterlabel';
-            lab_pop2009.className = 'filterlabel';
-            reset_pop2009.onclick = function() {
-                sel_pop2009.noUiSlider.reset();
-            };
-            document.getElementById("menu").appendChild(reset_pop2009);
-            var sel_pop2009 = document.getElementById('div_pop2009');
-            noUiSlider.create(sel_pop2009, {
-                connect: true,
-                start: [101539, 1109735],
-                step: 1,
-                format: wNumb({
-                    decimals: 0,
-                    }),
-                range: {
-                min: 101539,
-                max: 1109735
-                }
-            });
-            sel_pop2009.noUiSlider.on('update', function (values) {
-            filterVals =[];
-            for (value in values){
-            filterVals.push(parseInt(value))
-            }
-            val_pop2009 = document.getElementById('val_pop2009');
-            val_pop2009.innerHTML = values.join(' - ');
-                filterFunc()
-            });
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_Name = document.createElement('div');
-            div_Name.id = "div_Name";
-            div_Name.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Name);
-            sel_Name = document.createElement('select');
-            sel_Name.multiple = true;
-            sel_Name.size = 10;
-            sel_Name.id = "sel_Name";
-            var Name_options_str = "<option value='' unselected></option>";
-            sel_Name.onchange = function(){filterFunc()};
-            Name_options_str  += '<option value="Adinani NEMSEM">Adinani NEMSEM</option>';
-            Name_options_str  += '<option value="Airport_Scoopnet_AMU_SEM">Airport_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="AnikishiKusiMonofilament">AnikishiKusiMonofilament</option>';
-            Name_options_str  += '<option value="Ankishi">Ankishi</option>';
-            Name_options_str  += '<option value="Azani">Azani</option>';
-            Name_options_str  += '<option value="Bahari Club">Bahari Club</option>';
-            Name_options_str  += '<option value="Baishe mwalimu">Baishe mwalimu</option>';
-            Name_options_str  += '<option value="Bake Hamadi">Bake Hamadi</option>';
-            Name_options_str  += '<option value="Bakia Madi">Bakia Madi</option>';
-            Name_options_str  += '<option value="Bakombo_Longline_Kaskazi">Bakombo_Longline_Kaskazi</option>';
-            Name_options_str  += '<option value="Balonga">Balonga</option>';
-            Name_options_str  += '<option value="Bamoga_Kaskazi">Bamoga_Kaskazi</option>';
-            Name_options_str  += '<option value="Bamwoga NEM SEM">Bamwoga NEM SEM</option>';
-            Name_options_str  += '<option value="Bandari Mbili">Bandari Mbili</option>';
-            Name_options_str  += '<option value="Bandari Salama">Bandari Salama</option>';
-            Name_options_str  += '<option value="Bandari bwana mkuu NEM">Bandari bwana mkuu NEM</option>';
-            Name_options_str  += '<option value="Bandari salama">Bandari salama</option>';
-            Name_options_str  += '<option value="Bandari salama NEM SEM">Bandari salama NEM SEM</option>';
-            Name_options_str  += '<option value="Bandari ya Ali Hamadi NEM SEM">Bandari ya Ali Hamadi NEM SEM</option>';
-            Name_options_str  += '<option value="Bandari ya Bwana Mkuu">Bandari ya Bwana Mkuu</option>';
-            Name_options_str  += '<option value="Bandari ya Hashim">Bandari ya Hashim</option>';
-            Name_options_str  += '<option value="Bandari ya Msamuyu NEMSEM">Bandari ya Msamuyu NEMSEM</option>';
-            Name_options_str  += '<option value="Bandari ya Uchaa_Hand gathering_Kiangwe_SEM">Bandari ya Uchaa_Hand gathering_Kiangwe_SEM</option>';
-            Name_options_str  += '<option value="Bandari ya dodori NEM SEM">Bandari ya dodori NEM SEM</option>';
-            Name_options_str  += '<option value="Bandari ya kisu">Bandari ya kisu</option>';
-            Name_options_str  += '<option value="Bandari ya kuro NEM SEM">Bandari ya kuro NEM SEM</option>';
-            Name_options_str  += '<option value="Bandari ya male">Bandari ya male</option>';
-            Name_options_str  += '<option value="Bandari ya wayo NEM SEM">Bandari ya wayo NEM SEM</option>';
-            Name_options_str  += '<option value="Bandarini">Bandarini</option>';
-            Name_options_str  += '<option value="Bangwana">Bangwana</option>';
-            Name_options_str  += '<option value="Bangwana_Kusi/Kaskazi">Bangwana_Kusi/Kaskazi</option>';
-            Name_options_str  += '<option value="Baracks">Baracks</option>';
-            Name_options_str  += '<option value="Baramfumbi NEM SEM">Baramfumbi NEM SEM</option>';
-            Name_options_str  += '<option value="Barclays">Barclays</option>';
-            Name_options_str  += '<option value="Bauseni_Longline_Kaskazi">Bauseni_Longline_Kaskazi</option>';
-            Name_options_str  += '<option value="Bavu wa mito NEM SEM">Bavu wa mito NEM SEM</option>';
-            Name_options_str  += '<option value="BenderaniKusiMonofilament">BenderaniKusiMonofilament</option>';
-            Name_options_str  += '<option value="Bi Sharo">Bi Sharo</option>';
-            Name_options_str  += '<option value="Bifumo basket trap dambwe">Bifumo basket trap dambwe</option>';
-            Name_options_str  += '<option value="Bihimu">Bihimu</option>';
-            Name_options_str  += '<option value="Bihongwe">Bihongwe</option>';
-            Name_options_str  += '<option value="Bisharo">Bisharo</option>';
-            Name_options_str  += '<option value="Bisharu">Bisharu</option>';
-            Name_options_str  += '<option value="Blue Marlin">Blue Marlin</option>';
-            Name_options_str  += '<option value="Boni">Boni</option>';
-            Name_options_str  += '<option value="Bora Imani">Bora Imani</option>';
-            Name_options_str  += '<option value="Boya la Red">Boya la Red</option>';
-            Name_options_str  += '<option value="Boya la green">Boya la green</option>';
-            Name_options_str  += '<option value="Boya2">Boya2</option>';
-            Name_options_str  += '<option value="Boyani">Boyani</option>';
-            Name_options_str  += '<option value="Boyani Galu">Boyani Galu</option>';
-            Name_options_str  += '<option value="Boyani2">Boyani2</option>';
-            Name_options_str  += '<option value="Bullet">Bullet</option>';
-            Name_options_str  += '<option value="Bulu wa Badi">Bulu wa Badi</option>';
-            Name_options_str  += '<option value="Bwaheri">Bwaheri</option>';
-            Name_options_str  += '<option value="Bwana wa Wadhi">Bwana wa Wadhi</option>';
-            Name_options_str  += '<option value="Bwanahani">Bwanahani</option>';
-            Name_options_str  += '<option value="Bwari">Bwari</option>';
-            Name_options_str  += '<option value="Bwari Kiangwe Kaskazi">Bwari Kiangwe Kaskazi</option>';
-            Name_options_str  += '<option value="Bwari NEM SEM">Bwari NEM SEM</option>';
-            Name_options_str  += '<option value="Casino">Casino</option>';
-            Name_options_str  += '<option value="Castle">Castle</option>';
-            Name_options_str  += '<option value="Cha nyuki">Cha nyuki</option>';
-            Name_options_str  += '<option value="Cha simba">Cha simba</option>';
-            Name_options_str  += '<option value="Chalang&apos;a_Longline_Kaskazi">Chalang&apos;a_Longline_Kaskazi</option>';
-            Name_options_str  += '<option value="Chale - Gazi JCMA">Chale - Gazi JCMA</option>';
-            Name_options_str  += '<option value="Chale Island">Chale Island</option>';
-            Name_options_str  += '<option value="Chambani">Chambani</option>';
-            Name_options_str  += '<option value="Chandi kubwa NEM SEM">Chandi kubwa NEM SEM</option>';
-            Name_options_str  += '<option value="Chandi_Kusi">Chandi_Kusi</option>';
-            Name_options_str  += '<option value="Chaong&apos;o Chanje">Chaong&apos;o Chanje</option>';
-            Name_options_str  += '<option value="Chaong&apos;o cha ndani">Chaong&apos;o cha ndani</option>';
-            Name_options_str  += '<option value="Chaongo Cha ndani">Chaongo Cha ndani</option>';
-            Name_options_str  += '<option value="Chaongo cha inde">Chaongo cha inde</option>';
-            Name_options_str  += '<option value="Chaongo cha ndani">Chaongo cha ndani</option>';
-            Name_options_str  += '<option value="Charini">Charini</option>';
-            Name_options_str  += '<option value="Chasimba">Chasimba</option>';
-            Name_options_str  += '<option value="ChenjeleKusiMonofilament">ChenjeleKusiMonofilament</option>';
-            Name_options_str  += '<option value="Chenjere">Chenjere</option>';
-            Name_options_str  += '<option value="Chongoani">Chongoani</option>';
-            Name_options_str  += '<option value="Chumani">Chumani</option>';
-            Name_options_str  += '<option value="Chumani2">Chumani2</option>';
-            Name_options_str  += '<option value="Chumani_Nyali">Chumani_Nyali</option>';
-            Name_options_str  += '<option value="Chumbini">Chumbini</option>';
-            Name_options_str  += '<option value="Chuyu">Chuyu</option>';
-            Name_options_str  += '<option value="Chuyu/ Teja">Chuyu/ Teja</option>';
-            Name_options_str  += '<option value="Chuyu/Teja">Chuyu/Teja</option>';
-            Name_options_str  += '<option value="DOYO_SEM/NEM">DOYO_SEM/NEM</option>';
-            Name_options_str  += '<option value="DZinani2">DZinani2</option>';
-            Name_options_str  += '<option value="Daimboi">Daimboi</option>';
-            Name_options_str  += '<option value="Daimboi(1)-longline-dambwe">Daimboi(1)-longline-dambwe</option>';
-            Name_options_str  += '<option value="Daimboi(Daemboi)">Daimboi(Daemboi)</option>';
-            Name_options_str  += '<option value="Daimboi_Ndambwe_Prawns Seine_SEM">Daimboi_Ndambwe_Prawns Seine_SEM</option>';
-            Name_options_str  += '<option value="Dangawe">Dangawe</option>';
-            Name_options_str  += '<option value="Delo">Delo</option>';
-            Name_options_str  += '<option value="Denyenye">Denyenye</option>';
-            Name_options_str  += '<option value="Denyenye_Waa">Denyenye_Waa</option>';
-            Name_options_str  += '<option value="Dhaimboi">Dhaimboi</option>';
-            Name_options_str  += '<option value="Dodor_2">Dodor_2</option>';
-            Name_options_str  += '<option value="Dodori">Dodori</option>';
-            Name_options_str  += '<option value="Dondo">Dondo</option>';
-            Name_options_str  += '<option value="Dondo NEM SEM">Dondo NEM SEM</option>';
-            Name_options_str  += '<option value="Dongo Bulu">Dongo Bulu</option>';
-            Name_options_str  += '<option value="Dongo KuInama">Dongo KuInama</option>';
-            Name_options_str  += '<option value="Dongo Kundu">Dongo Kundu</option>';
-            Name_options_str  += '<option value="Dongo kundu NEM SEM">Dongo kundu NEM SEM</option>';
-            Name_options_str  += '<option value="Dongole/Pungu villa/Mvumo/Kikadini">Dongole/Pungu villa/Mvumo/Kikadini</option>';
-            Name_options_str  += '<option value="DoyoKusiMonofilament">DoyoKusiMonofilament</option>';
-            Name_options_str  += '<option value="Dzinani">Dzinani</option>';
-            Name_options_str  += '<option value="Fambuzi">Fambuzi</option>';
-            Name_options_str  += '<option value="Fatewa">Fatewa</option>';
-            Name_options_str  += '<option value="Fatewa NEM SEM">Fatewa NEM SEM</option>';
-            Name_options_str  += '<option value="Fort Kaskazi">Fort Kaskazi</option>';
-            Name_options_str  += '<option value="Fua">Fua</option>';
-            Name_options_str  += '<option value="Fua_Fishing line_Kusi">Fua_Fishing line_Kusi</option>';
-            Name_options_str  += '<option value="Fudera">Fudera</option>';
-            Name_options_str  += '<option value="Funga Mbuzi">Funga Mbuzi</option>';
-            Name_options_str  += '<option value="Fungu la kati_Kaskazi">Fungu la kati_Kaskazi</option>';
-            Name_options_str  += '<option value="Fungu la makaburi">Fungu la makaburi</option>';
-            Name_options_str  += '<option value="Funguni">Funguni</option>';
-            Name_options_str  += '<option value="Fuuni">Fuuni</option>';
-            Name_options_str  += '<option value="GOGONI_AMU_Scoopnet_NEM">GOGONI_AMU_Scoopnet_NEM</option>';
-            Name_options_str  += '<option value="Galu">Galu</option>';
-            Name_options_str  += '<option value="Goro">Goro</option>';
-            Name_options_str  += '<option value="Guya">Guya</option>';
-            Name_options_str  += '<option value="HAINYAWE_SEM/NEM">HAINYAWE_SEM/NEM</option>';
-            Name_options_str  += '<option value="HUNANDU_SEM/NEM">HUNANDU_SEM/NEM</option>';
-            Name_options_str  += '<option value="Halambe">Halambe</option>';
-            Name_options_str  += '<option value="Hanawi_AMU_Scoopnet_NEM">Hanawi_AMU_Scoopnet_NEM</option>';
-            Name_options_str  += '<option value="Harambe NEM SEM">Harambe NEM SEM</option>';
-            Name_options_str  += '<option value="Hatari">Hatari</option>';
-            Name_options_str  += '<option value="Hemedi NEMSEM">Hemedi NEMSEM</option>';
-            Name_options_str  += '<option value="Hesho">Hesho</option>';
-            Name_options_str  += '<option value="Hidio">Hidio</option>';
-            Name_options_str  += '<option value="IKOKONI_SEM/NEM">IKOKONI_SEM/NEM</option>';
-            Name_options_str  += '<option value="Ikishi">Ikishi</option>';
-            Name_options_str  += '<option value="Ingiini">Ingiini</option>';
-            Name_options_str  += '<option value="Ingini">Ingini</option>';
-            Name_options_str  += '<option value="Ishaka">Ishaka</option>';
-            Name_options_str  += '<option value="Island">Island</option>';
-            Name_options_str  += '<option value="Island2">Island2</option>';
-            Name_options_str  += '<option value="JAMBA_LA_NGURU_HANDLINE_KASKAZI">JAMBA_LA_NGURU_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="Jamba La Faizina_Scoopnet_NEM">Jamba La Faizina_Scoopnet_NEM</option>';
-            Name_options_str  += '<option value="Jamba la Simba">Jamba la Simba</option>';
-            Name_options_str  += '<option value="Javani Kwa Stahamili_scoopnet_AMU_NEM">Javani Kwa Stahamili_scoopnet_AMU_NEM</option>';
-            Name_options_str  += '<option value="Jetty">Jetty</option>';
-            Name_options_str  += '<option value="Jimbo">Jimbo</option>';
-            Name_options_str  += '<option value="Jineri">Jineri</option>';
-            Name_options_str  += '<option value="Jithuni">Jithuni</option>';
-            Name_options_str  += '<option value="Jiwe la Mzungu">Jiwe la Mzungu</option>';
-            Name_options_str  += '<option value="Jiwe la mtu">Jiwe la mtu</option>';
-            Name_options_str  += '<option value="Jolo">Jolo</option>';
-            Name_options_str  += '<option value="Jolo NEM">Jolo NEM</option>';
-            Name_options_str  += '<option value="Jomvu">Jomvu</option>';
-            Name_options_str  += '<option value="Jumba nene">Jumba nene</option>';
-            Name_options_str  += '<option value="KAMAMKUKI JCMA">KAMAMKUKI JCMA</option>';
-            Name_options_str  += '<option value="KEUSI_SEM/NEM_">KEUSI_SEM/NEM_</option>';
-            Name_options_str  += '<option value="KIBEBONI_SEM/NEM">KIBEBONI_SEM/NEM</option>';
-            Name_options_str  += '<option value="KIWAYUU_HANDLINE_KASKAZI">KIWAYUU_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="KIZINGITINI_HANDLINE_KASKAZI">KIZINGITINI_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="KOANA_HANDLINE_KASKAZI">KOANA_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="KUWI_HANDLINE_KASKAZI">KUWI_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="KWALAE_SEM/NEM">KWALAE_SEM/NEM</option>';
-            Name_options_str  += '<option value="KWA_BISIMBA_SEM/NEM">KWA_BISIMBA_SEM/NEM</option>';
-            Name_options_str  += '<option value="KWA_HALIFA_SEM/NEM">KWA_HALIFA_SEM/NEM</option>';
-            Name_options_str  += '<option value="Kadini_reef">Kadini_reef</option>';
-            Name_options_str  += '<option value="Kamau">Kamau</option>';
-            Name_options_str  += '<option value="Kasarani_Kaskazi">Kasarani_Kaskazi</option>';
-            Name_options_str  += '<option value="Kasikazi">Kasikazi</option>';
-            Name_options_str  += '<option value="Kasikazi2">Kasikazi2</option>';
-            Name_options_str  += '<option value="Kasita">Kasita</option>';
-            Name_options_str  += '<option value="Kazi Kiani">Kazi Kiani</option>';
-            Name_options_str  += '<option value="Kerakani_Kaskazi">Kerakani_Kaskazi</option>';
-            Name_options_str  += '<option value="Kerekani">Kerekani</option>';
-            Name_options_str  += '<option value="Kiangwe NEM SEM">Kiangwe NEM SEM</option>';
-            Name_options_str  += '<option value="Kibabu">Kibabu</option>';
-            Name_options_str  += '<option value="Kibabu2">Kibabu2</option>';
-            Name_options_str  += '<option value="Kibabu_Nyali">Kibabu_Nyali</option>';
-            Name_options_str  += '<option value="Kibaoni">Kibaoni</option>';
-            Name_options_str  += '<option value="Kibarani">Kibarani</option>';
-            Name_options_str  += '<option value="Kibirikani">Kibirikani</option>';
-            Name_options_str  += '<option value="Kiboko">Kiboko</option>';
-            Name_options_str  += '<option value="Kiboko_Kaskazi">Kiboko_Kaskazi</option>';
-            Name_options_str  += '<option value="Kiboyani">Kiboyani</option>';
-            Name_options_str  += '<option value="Kibukuni NEM SEM">Kibukuni NEM SEM</option>';
-            Name_options_str  += '<option value="Kibuukuni">Kibuukuni</option>';
-            Name_options_str  += '<option value="Kibuyuni">Kibuyuni</option>';
-            Name_options_str  += '<option value="Kichwa cha nyoka">Kichwa cha nyoka</option>';
-            Name_options_str  += '<option value="Kichwa chwa nyoka">Kichwa chwa nyoka</option>';
-            Name_options_str  += '<option value="Kichwani">Kichwani</option>';
-            Name_options_str  += '<option value="Kidofiro">Kidofiro</option>';
-            Name_options_str  += '<option value="Kidongo">Kidongo</option>';
-            Name_options_str  += '<option value="Kidongoni">Kidongoni</option>';
-            Name_options_str  += '<option value="Kidutani">Kidutani</option>';
-            Name_options_str  += '<option value="Kijabia">Kijabia</option>';
-            Name_options_str  += '<option value="Kijambani">Kijambani</option>';
-            Name_options_str  += '<option value="Kijituni NEMSEM">Kijituni NEMSEM</option>';
-            Name_options_str  += '<option value="Kijiweni">Kijiweni</option>';
-            Name_options_str  += '<option value="Kijungu/Kitau_scoopnet_AMU_NEM">Kijungu/Kitau_scoopnet_AMU_NEM</option>';
-            Name_options_str  += '<option value="Kijuni">Kijuni</option>';
-            Name_options_str  += '<option value="Kijuuni">Kijuuni</option>';
-            Name_options_str  += '<option value="Kijuuni SEM">Kijuuni SEM</option>';
-            Name_options_str  += '<option value="Kijuyuni">Kijuyuni</option>';
-            Name_options_str  += '<option value="Kikoni">Kikoni</option>';
-            Name_options_str  += '<option value="Kililana">Kililana</option>';
-            Name_options_str  += '<option value="Kililana B">Kililana B</option>';
-            Name_options_str  += '<option value="Kililana NEM">Kililana NEM</option>';
-            Name_options_str  += '<option value="Kilindi">Kilindi</option>';
-            Name_options_str  += '<option value="Kilindi_Longline_Kaskazi">Kilindi_Longline_Kaskazi</option>';
-            Name_options_str  += '<option value="Kimanda">Kimanda</option>';
-            Name_options_str  += '<option value="Kimbo">Kimbo</option>';
-            Name_options_str  += '<option value="Kimiri_Kusi/Kaskazi">Kimiri_Kusi/Kaskazi</option>';
-            Name_options_str  += '<option value="Kiombeni">Kiombeni</option>';
-            Name_options_str  += '<option value="Kiongwe">Kiongwe</option>';
-            Name_options_str  += '<option value="Kipakishimo">Kipakishimo</option>';
-            Name_options_str  += '<option value="Kipangatui">Kipangatui</option>';
-            Name_options_str  += '<option value="Kipangatui2">Kipangatui2</option>';
-            Name_options_str  += '<option value="Kipilili_Ndambwe_Prawns seine_NEM">Kipilili_Ndambwe_Prawns seine_NEM</option>';
-            Name_options_str  += '<option value="Kipungani">Kipungani</option>';
-            Name_options_str  += '<option value="Kipungani Ndununi">Kipungani Ndununi</option>';
-            Name_options_str  += '<option value="Kipungani_Kusi_Long line">Kipungani_Kusi_Long line</option>';
-            Name_options_str  += '<option value="Kirara">Kirara</option>';
-            Name_options_str  += '<option value="Kirusi">Kirusi</option>';
-            Name_options_str  += '<option value="KirusiKusiMonofilament">KirusiKusiMonofilament</option>';
-            Name_options_str  += '<option value="Kiserengwe">Kiserengwe</option>';
-            Name_options_str  += '<option value="Kisha Kapana_AMU_Scoopnet_SEM">Kisha Kapana_AMU_Scoopnet_SEM</option>';
-            Name_options_str  += '<option value="Kishaka Panya">Kishaka Panya</option>';
-            Name_options_str  += '<option value="Kisisi">Kisisi</option>';
-            Name_options_str  += '<option value="Kisiwa">Kisiwa</option>';
-            Name_options_str  += '<option value="Kisu">Kisu</option>';
-            Name_options_str  += '<option value="Kisu_Kaskazi">Kisu_Kaskazi</option>';
-            Name_options_str  += '<option value="Kitakani">Kitakani</option>';
-            Name_options_str  += '<option value="Kitanga juu">Kitanga juu</option>';
-            Name_options_str  += '<option value="Kitangani">Kitangani</option>';
-            Name_options_str  += '<option value="Kitangani NEMSEM">Kitangani NEMSEM</option>';
-            Name_options_str  += '<option value="Kitau">Kitau</option>';
-            Name_options_str  += '<option value="Kithorobe_Handline_Mngiini">Kithorobe_Handline_Mngiini</option>';
-            Name_options_str  += '<option value="Kithothoni">Kithothoni</option>';
-            Name_options_str  += '<option value="Kitorobe">Kitorobe</option>';
-            Name_options_str  += '<option value="Kitorobe1">Kitorobe1</option>';
-            Name_options_str  += '<option value="Kitototo">Kitototo</option>';
-            Name_options_str  += '<option value="Kitowimbi">Kitowimbi</option>';
-            Name_options_str  += '<option value="Kitungamwe">Kitungamwe</option>';
-            Name_options_str  += '<option value="Kiturazini NEM">Kiturazini NEM</option>';
-            Name_options_str  += '<option value="Kitwa cha Nazi NEMSEM">Kitwa cha Nazi NEMSEM</option>';
-            Name_options_str  += '<option value="Kitwa cha Nyoka">Kitwa cha Nyoka</option>';
-            Name_options_str  += '<option value="Kiunga">Kiunga</option>';
-            Name_options_str  += '<option value="Kivukoni">Kivukoni</option>';
-            Name_options_str  += '<option value="Kiweni">Kiweni</option>';
-            Name_options_str  += '<option value="Kiziwa-Nyuma ya Chale">Kiziwa-Nyuma ya Chale</option>';
-            Name_options_str  += '<option value="Kizuke">Kizuke</option>';
-            Name_options_str  += '<option value="Komboza">Komboza</option>';
-            Name_options_str  += '<option value="Kongo river">Kongo river</option>';
-            Name_options_str  += '<option value="Kongo_river">Kongo_river</option>';
-            Name_options_str  += '<option value="Kusudi">Kusudi</option>';
-            Name_options_str  += '<option value="Kwa ASHA">Kwa ASHA</option>';
-            Name_options_str  += '<option value="Kwa Adi_Scoopnet_AMU_SEM">Kwa Adi_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="Kwa Alfa">Kwa Alfa</option>';
-            Name_options_str  += '<option value="Kwa Alifa">Kwa Alifa</option>';
-            Name_options_str  += '<option value="Kwa Badi">Kwa Badi</option>';
-            Name_options_str  += '<option value="Kwa Baheri">Kwa Baheri</option>';
-            Name_options_str  += '<option value="Kwa Bakari Halidi basket trap dambwe">Kwa Bakari Halidi basket trap dambwe</option>';
-            Name_options_str  += '<option value="Kwa Basi">Kwa Basi</option>';
-            Name_options_str  += '<option value="Kwa Bwa Omari">Kwa Bwa Omari</option>';
-            Name_options_str  += '<option value="Kwa Famau">Kwa Famau</option>';
-            Name_options_str  += '<option value="Kwa Hemedi">Kwa Hemedi</option>';
-            Name_options_str  += '<option value="Kwa Hussein">Kwa Hussein</option>';
-            Name_options_str  += '<option value="Kwa Jaluo_Scoopnet_AMU_SEM">Kwa Jaluo_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="Kwa Jele">Kwa Jele</option>';
-            Name_options_str  += '<option value="Kwa Jelee">Kwa Jelee</option>';
-            Name_options_str  += '<option value="Kwa Layi">Kwa Layi</option>';
-            Name_options_str  += '<option value="Kwa Mambore">Kwa Mambore</option>';
-            Name_options_str  += '<option value="Kwa Mary_Scoopnet_AMU_SEM">Kwa Mary_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="Kwa Mundu">Kwa Mundu</option>';
-            Name_options_str  += '<option value="Kwa Ndundu_Scoopnet_AMU_NEM">Kwa Ndundu_Scoopnet_AMU_NEM</option>';
-            Name_options_str  += '<option value="Kwa Nyati">Kwa Nyati</option>';
-            Name_options_str  += '<option value="Kwa Patriki SEM">Kwa Patriki SEM</option>';
-            Name_options_str  += '<option value="Kwa Rewa">Kwa Rewa</option>';
-            Name_options_str  += '<option value="Kwa Subetii NEMSEM">Kwa Subetii NEMSEM</option>';
-            Name_options_str  += '<option value="Kwa Sudi">Kwa Sudi</option>';
-            Name_options_str  += '<option value="Kwa TSS NEM SEM">Kwa TSS NEM SEM</option>';
-            Name_options_str  += '<option value="Kwa Thuri">Kwa Thuri</option>';
-            Name_options_str  += '<option value="Kwa Turi">Kwa Turi</option>';
-            Name_options_str  += '<option value="Kwa kahingo">Kwa kahingo</option>';
-            Name_options_str  += '<option value="Kwa lae">Kwa lae</option>';
-            Name_options_str  += '<option value="Kwa mama">Kwa mama</option>';
-            Name_options_str  += '<option value="Kwa shaa NEM SEM">Kwa shaa NEM SEM</option>';
-            Name_options_str  += '<option value="Kwa sudi">Kwa sudi</option>';
-            Name_options_str  += '<option value="Kwa wanga">Kwa wanga</option>';
-            Name_options_str  += '<option value="Kwa wasanye">Kwa wasanye</option>';
-            Name_options_str  += '<option value="KwaBwanaHeriKusiMonofilament">KwaBwanaHeriKusiMonofilament</option>';
-            Name_options_str  += '<option value="Kwabau">Kwabau</option>';
-            Name_options_str  += '<option value="Kwakuro_Kaskazi">Kwakuro_Kaskazi</option>';
-            Name_options_str  += '<option value="KwamamaKusiMonofilament">KwamamaKusiMonofilament</option>';
-            Name_options_str  += '<option value="Kwanagi_Kaskazi">Kwanagi_Kaskazi</option>';
-            Name_options_str  += '<option value="KwasasiKusiMonofilament">KwasasiKusiMonofilament</option>';
-            Name_options_str  += '<option value="Lamu Bay JCMA">Lamu Bay JCMA</option>';
-            Name_options_str  += '<option value="Leisure Reef">Leisure Reef</option>';
-            Name_options_str  += '<option value="Likoni">Likoni</option>';
-            Name_options_str  += '<option value="Likoni2">Likoni2</option>';
-            Name_options_str  += '<option value="MAGOGONI_HANDLINE_KUSI">MAGOGONI_HANDLINE_KUSI</option>';
-            Name_options_str  += '<option value="MCHANGA_NENE_HANDLINE_KASKAZI">MCHANGA_NENE_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="MKOMA_MMOJA_HANDLINE_KASKAZI">MKOMA_MMOJA_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="MLIMA_KUFA_HANDLINE_KASKAZI">MLIMA_KUFA_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="MREFU_HANDLINE_KASKAZI">MREFU_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="MTANGA_WANGA_HANDLINE_KUSI">MTANGA_WANGA_HANDLINE_KUSI</option>';
-            Name_options_str  += '<option value="MVUDHENI_HANDLINE_KASKAZI">MVUDHENI_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="MWAMBANI_SEM/NEM">MWAMBANI_SEM/NEM</option>';
-            Name_options_str  += '<option value="MWAMBA_WA_HASSANI_HANDLINE_KUSI">MWAMBA_WA_HASSANI_HANDLINE_KUSI</option>';
-            Name_options_str  += '<option value="Maboyani">Maboyani</option>';
-            Name_options_str  += '<option value="Maduba">Maduba</option>';
-            Name_options_str  += '<option value="Madugwa">Madugwa</option>';
-            Name_options_str  += '<option value="Madungwa">Madungwa</option>';
-            Name_options_str  += '<option value="Maeneo">Maeneo</option>';
-            Name_options_str  += '<option value="Maganga">Maganga</option>';
-            Name_options_str  += '<option value="Magogo">Magogo</option>';
-            Name_options_str  += '<option value="Magogoni">Magogoni</option>';
-            Name_options_str  += '<option value="Magogoni SEM">Magogoni SEM</option>';
-            Name_options_str  += '<option value="Magogoni-longline ndambwe">Magogoni-longline ndambwe</option>';
-            Name_options_str  += '<option value="Magomeni Kas">Magomeni Kas</option>';
-            Name_options_str  += '<option value="Magumba">Magumba</option>';
-            Name_options_str  += '<option value="Maguzoni">Maguzoni</option>';
-            Name_options_str  += '<option value="Majengo">Majengo</option>';
-            Name_options_str  += '<option value="Majeo">Majeo</option>';
-            Name_options_str  += '<option value="Maji Makali">Maji Makali</option>';
-            Name_options_str  += '<option value="Maji makali">Maji makali</option>';
-            Name_options_str  += '<option value="Majusini_Scoopnet_AMU_NEM">Majusini_Scoopnet_AMU_NEM</option>';
-            Name_options_str  += '<option value="Makofi">Makofi</option>';
-            Name_options_str  += '<option value="Makofi2">Makofi2</option>';
-            Name_options_str  += '<option value="Makombeni">Makombeni</option>';
-            Name_options_str  += '<option value="Makonde">Makonde</option>';
-            Name_options_str  += '<option value="Malindi - Marereni JCMA">Malindi - Marereni JCMA</option>';
-            Name_options_str  += '<option value="Malkia NEM SEM">Malkia NEM SEM</option>';
-            Name_options_str  += '<option value="Mamudu">Mamudu</option>';
-            Name_options_str  += '<option value="Managani">Managani</option>';
-            Name_options_str  += '<option value="Manda">Manda</option>';
-            Name_options_str  += '<option value="Manda Juu Kus">Manda Juu Kus</option>';
-            Name_options_str  += '<option value="Manda YU">Manda YU</option>';
-            Name_options_str  += '<option value="Manda nyeupe">Manda nyeupe</option>';
-            Name_options_str  += '<option value="Mapandioni">Mapandioni</option>';
-            Name_options_str  += '<option value="Mapipani">Mapipani</option>';
-            Name_options_str  += '<option value="Maradona">Maradona</option>';
-            Name_options_str  += '<option value="MarambiniKusiMonofilament">MarambiniKusiMonofilament</option>';
-            Name_options_str  += '<option value="Mardiza_Hand gathering_Kiangwe_NEM">Mardiza_Hand gathering_Kiangwe_NEM</option>';
-            Name_options_str  += '<option value="Marfuma (Omarfumo)">Marfuma (Omarfumo)</option>';
-            Name_options_str  += '<option value="Marina">Marina</option>';
-            Name_options_str  += '<option value="Masharata">Masharata</option>';
-            Name_options_str  += '<option value="Mashazani">Mashazani</option>';
-            Name_options_str  += '<option value="Mashekhe">Mashekhe</option>';
-            Name_options_str  += '<option value="Mashuarini">Mashuarini</option>';
-            Name_options_str  += '<option value="Mashundwani">Mashundwani</option>';
-            Name_options_str  += '<option value="Mashundwani NEM">Mashundwani NEM</option>';
-            Name_options_str  += '<option value="Mashundwani_NEM">Mashundwani_NEM</option>';
-            Name_options_str  += '<option value="Mashundwani_Scoopnet_AMU_SEM">Mashundwani_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="Mashwarini">Mashwarini</option>';
-            Name_options_str  += '<option value="Mataani">Mataani</option>';
-            Name_options_str  += '<option value="Mataoni">Mataoni</option>';
-            Name_options_str  += '<option value="Mato Juu">Mato Juu</option>';
-            Name_options_str  += '<option value="Matondoni_AMU_Scoopnet_SEM">Matondoni_AMU_Scoopnet_SEM</option>';
-            Name_options_str  += '<option value="Matwali">Matwali</option>';
-            Name_options_str  += '<option value="Mavovo">Mavovo</option>';
-            Name_options_str  += '<option value="Mavumizini">Mavumizini</option>';
-            Name_options_str  += '<option value="Mawambe">Mawambe</option>';
-            Name_options_str  += '<option value="Mawambwe">Mawambwe</option>';
-            Name_options_str  += '<option value="Maweni">Maweni</option>';
-            Name_options_str  += '<option value="Mayi Makali">Mayi Makali</option>';
-            Name_options_str  += '<option value="Mayongoni">Mayongoni</option>';
-            Name_options_str  += '<option value="Mayongoni_Hand gathering_Kiangwe_SEM">Mayongoni_Hand gathering_Kiangwe_SEM</option>';
-            Name_options_str  += '<option value="Maziwani">Maziwani</option>';
-            Name_options_str  += '<option value="Mbagani">Mbagani</option>';
-            Name_options_str  += '<option value="Mbili Ngii">Mbili Ngii</option>';
-            Name_options_str  += '<option value="Mbilimbili NEM SEM">Mbilimbili NEM SEM</option>';
-            Name_options_str  += '<option value="Mbilingii">Mbilingii</option>';
-            Name_options_str  += '<option value="Mboko moja_Kusi/Kaskazi">Mboko moja_Kusi/Kaskazi</option>';
-            Name_options_str  += '<option value="Mbonje_Hand gathering_Kiangwe_SEM">Mbonje_Hand gathering_Kiangwe_SEM</option>';
-            Name_options_str  += '<option value="Mbonje_Kaskazi_Longline">Mbonje_Kaskazi_Longline</option>';
-            Name_options_str  += '<option value="Mbuyuni">Mbuyuni</option>';
-            Name_options_str  += '<option value="Mchanga Mnene_AMU_Scoopnet_NEM">Mchanga Mnene_AMU_Scoopnet_NEM</option>';
-            Name_options_str  += '<option value="Mchangani SEM">Mchangani SEM</option>';
-            Name_options_str  += '<option value="Mche wa Mayi">Mche wa Mayi</option>';
-            Name_options_str  += '<option value="Meani">Meani</option>';
-            Name_options_str  += '<option value="Mferejeni">Mferejeni</option>';
-            Name_options_str  += '<option value="Mfrejini">Mfrejini</option>';
-            Name_options_str  += '<option value="Mgini SEM">Mgini SEM</option>';
-            Name_options_str  += '<option value="Migingo">Migingo</option>';
-            Name_options_str  += '<option value="Milihoi">Milihoi</option>';
-            Name_options_str  += '<option value="Milihoi NEM SEM">Milihoi NEM SEM</option>';
-            Name_options_str  += '<option value="Mirarani">Mirarani</option>';
-            Name_options_str  += '<option value="Mirarani2">Mirarani2</option>';
-            Name_options_str  += '<option value="Mishi">Mishi</option>';
-            Name_options_str  += '<option value="Mitini">Mitini</option>';
-            Name_options_str  += '<option value="Mito Mai">Mito Mai</option>';
-            Name_options_str  += '<option value="Mivinjeni">Mivinjeni</option>';
-            Name_options_str  += '<option value="Mjanda NEM">Mjanda NEM</option>';
-            Name_options_str  += '<option value="Mkanda">Mkanda</option>';
-            Name_options_str  += '<option value="Mkanda NEM">Mkanda NEM</option>';
-            Name_options_str  += '<option value="Mkanda_Scoopnet_AMU_SEM">Mkanda_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="Mkashorina">Mkashorina</option>';
-            Name_options_str  += '<option value="Mkokoni">Mkokoni</option>';
-            Name_options_str  += '<option value="Mkomani">Mkomani</option>';
-            Name_options_str  += '<option value="Mkombe">Mkombe</option>';
-            Name_options_str  += '<option value="Mkondoni_Scoopnet_AMU_SEM">Mkondoni_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="Mkorotano">Mkorotano</option>';
-            Name_options_str  += '<option value="Mkung&apos;ombe">Mkung&apos;ombe</option>';
-            Name_options_str  += '<option value="Mkunga">Mkunga</option>';
-            Name_options_str  += '<option value="Mkunguni">Mkunguni</option>';
-            Name_options_str  += '<option value="Mkuni">Mkuni</option>';
-            Name_options_str  += '<option value="Mkupe">Mkupe</option>';
-            Name_options_str  += '<option value="Mkwaju">Mkwaju</option>';
-            Name_options_str  += '<option value="Mkwekwe Nyaje">Mkwekwe Nyaje</option>';
-            Name_options_str  += '<option value="Mlango wa Kipungani">Mlango wa Kipungani</option>';
-            Name_options_str  += '<option value="Mlango wa shela">Mlango wa shela</option>';
-            Name_options_str  += '<option value="Mlangoni">Mlangoni</option>';
-            Name_options_str  += '<option value="Mlangoni Ingini">Mlangoni Ingini</option>';
-            Name_options_str  += '<option value="Mlangoni kwa ndani">Mlangoni kwa ndani</option>';
-            Name_options_str  += '<option value="Mlangoni ngiini">Mlangoni ngiini</option>';
-            Name_options_str  += '<option value="Mlangoni_tudor">Mlangoni_tudor</option>';
-            Name_options_str  += '<option value="Mlilano wa Mayi Mengi">Mlilano wa Mayi Mengi</option>';
-            Name_options_str  += '<option value="Mlima Wa Shaibu_Scoopnet_AMU_NEM">Mlima Wa Shaibu_Scoopnet_AMU_NEM</option>';
-            Name_options_str  += '<option value="Mlimani">Mlimani</option>';
-            Name_options_str  += '<option value="Mnarani">Mnarani</option>';
-            Name_options_str  += '<option value="Mnarani/-bridge">Mnarani/-bridge</option>';
-            Name_options_str  += '<option value="Mnarani2">Mnarani2</option>';
-            Name_options_str  += '<option value="Mnazi">Mnazi</option>';
-            Name_options_str  += '<option value="Mohogoni">Mohogoni</option>';
-            Name_options_str  += '<option value="Moiz">Moiz</option>';
-            Name_options_str  += '<option value="Mokove Jet Ya Zamani">Mokove Jet Ya Zamani</option>';
-            Name_options_str  += '<option value="Mokove Jet ya kisasa">Mokove Jet ya kisasa</option>';
-            Name_options_str  += '<option value="Mokowe_AMU_Scoopnet_SEM">Mokowe_AMU_Scoopnet_SEM</option>';
-            Name_options_str  += '<option value="Mshahame">Mshahame</option>';
-            Name_options_str  += '<option value="Mshaka">Mshaka</option>';
-            Name_options_str  += '<option value="Msikiti">Msikiti</option>';
-            Name_options_str  += '<option value="Mtanga mnene">Mtanga mnene</option>';
-            Name_options_str  += '<option value="Mtangawanda">Mtangawanda</option>';
-            Name_options_str  += '<option value="Mtauwongo">Mtauwongo</option>';
-            Name_options_str  += '<option value="Mtengo">Mtengo</option>';
-            Name_options_str  += '<option value="Mto Paulo">Mto Paulo</option>';
-            Name_options_str  += '<option value="Mto Simba">Mto Simba</option>';
-            Name_options_str  += '<option value="Mto Tiati">Mto Tiati</option>';
-            Name_options_str  += '<option value="Mto mawe">Mto mawe</option>';
-            Name_options_str  += '<option value="Mto ngizi">Mto ngizi</option>';
-            Name_options_str  += '<option value="Mto shelly">Mto shelly</option>';
-            Name_options_str  += '<option value="Mto wa Ali">Mto wa Ali</option>';
-            Name_options_str  += '<option value="Mto wa Chale">Mto wa Chale</option>';
-            Name_options_str  += '<option value="Mto wa Mawabwe">Mto wa Mawabwe</option>';
-            Name_options_str  += '<option value="Mto wa Mea">Mto wa Mea</option>';
-            Name_options_str  += '<option value="Mto wa Mwandamu">Mto wa Mwandamu</option>';
-            Name_options_str  += '<option value="Mto wa Tandu">Mto wa Tandu</option>';
-            Name_options_str  += '<option value="Mto wa Ungu">Mto wa Ungu</option>';
-            Name_options_str  += '<option value="Mto wa fungu NEM SEM">Mto wa fungu NEM SEM</option>';
-            Name_options_str  += '<option value="Mto wa kimbo monofilament dambwe">Mto wa kimbo monofilament dambwe</option>';
-            Name_options_str  += '<option value="Mto wa mea 2 basket trap- dambwe">Mto wa mea 2 basket trap- dambwe</option>';
-            Name_options_str  += '<option value="Mto wa tando">Mto wa tando</option>';
-            Name_options_str  += '<option value="Mtongizi">Mtongizi</option>';
-            Name_options_str  += '<option value="Mtongwe">Mtongwe</option>';
-            Name_options_str  += '<option value="Mtoni">Mtoni</option>';
-            Name_options_str  += '<option value="Mtungoni">Mtungoni</option>';
-            Name_options_str  += '<option value="Mtuni">Mtuni</option>';
-            Name_options_str  += '<option value="Mtwapa Creek">Mtwapa Creek</option>';
-            Name_options_str  += '<option value="Muadhi_Kusi_Long line">Muadhi_Kusi_Long line</option>';
-            Name_options_str  += '<option value="Muvuni">Muvuni</option>';
-            Name_options_str  += '<option value="Mvindeni_8">Mvindeni_8</option>';
-            Name_options_str  += '<option value="Mvumo">Mvumo</option>';
-            Name_options_str  += '<option value="Mvuni">Mvuni</option>';
-            Name_options_str  += '<option value="Mwaganda">Mwaganda</option>';
-            Name_options_str  += '<option value="Mwakamba">Mwakamba</option>';
-            Name_options_str  += '<option value="Mwakore">Mwakore</option>';
-            Name_options_str  += '<option value="Mwakuzimu">Mwakuzimu</option>';
-            Name_options_str  += '<option value="Mwalomba">Mwalomba</option>';
-            Name_options_str  += '<option value="Mwalumbi">Mwalumbi</option>';
-            Name_options_str  += '<option value="Mwamba Kitao">Mwamba Kitao</option>';
-            Name_options_str  += '<option value="Mwamba Kitunguu">Mwamba Kitunguu</option>';
-            Name_options_str  += '<option value="Mwamba Mkuu">Mwamba Mkuu</option>';
-            Name_options_str  += '<option value="Mwamba Wa Pango">Mwamba Wa Pango</option>';
-            Name_options_str  += '<option value="Mwamba mkuu NEM SEM">Mwamba mkuu NEM SEM</option>';
-            Name_options_str  += '<option value="Mwamba wa Kati">Mwamba wa Kati</option>';
-            Name_options_str  += '<option value="Mwamba wa Rashid">Mwamba wa Rashid</option>';
-            Name_options_str  += '<option value="Mwamba wa Shanga">Mwamba wa Shanga</option>';
-            Name_options_str  += '<option value="Mwamba wa Yee">Mwamba wa Yee</option>';
-            Name_options_str  += '<option value="Mwambani">Mwambani</option>';
-            Name_options_str  += '<option value="Mwamkasi_Handline_Mngiini">Mwamkasi_Handline_Mngiini</option>';
-            Name_options_str  += '<option value="Mwanamboye_Hand gathering_Kiangwe_NEM">Mwanamboye_Hand gathering_Kiangwe_NEM</option>';
-            Name_options_str  += '<option value="Mwandamu">Mwandamu</option>';
-            Name_options_str  += '<option value="Mwandamu-Funzi JCMA">Mwandamu-Funzi JCMA</option>';
-            Name_options_str  += '<option value="Mwandamu2">Mwandamu2</option>';
-            Name_options_str  += '<option value="Mwandoni">Mwandoni</option>';
-            Name_options_str  += '<option value="Mwanena">Mwanena</option>';
-            Name_options_str  += '<option value="Mwanena NEM SEM">Mwanena NEM SEM</option>';
-            Name_options_str  += '<option value="Mwang&apos;ombe">Mwang&apos;ombe</option>';
-            Name_options_str  += '<option value="Mwangala">Mwangala</option>';
-            Name_options_str  += '<option value="Mwangizi_Ndambwe_Prawns seine_SEM">Mwangizi_Ndambwe_Prawns seine_SEM</option>';
-            Name_options_str  += '<option value="MwankasiKusiMonofilament">MwankasiKusiMonofilament</option>';
-            Name_options_str  += '<option value="Mwashende">Mwashende</option>';
-            Name_options_str  += '<option value="Mwatarare">Mwatarare</option>';
-            Name_options_str  += '<option value="Mwatsaa">Mwatsaa</option>';
-            Name_options_str  += '<option value="Mwaweza">Mwaweza</option>';
-            Name_options_str  += '<option value="Mwazenge">Mwazenge</option>';
-            Name_options_str  += '<option value="Mwazi">Mwazi</option>';
-            Name_options_str  += '<option value="Mwendoni">Mwendoni</option>';
-            Name_options_str  += '<option value="Mwetane NEM SEM">Mwetane NEM SEM</option>';
-            Name_options_str  += '<option value="Mwetani">Mwetani</option>';
-            Name_options_str  += '<option value="Mwetani_Ndambwe_Prawn seine_NEM">Mwetani_Ndambwe_Prawn seine_NEM</option>';
-            Name_options_str  += '<option value="Mweza_creek">Mweza_creek</option>';
-            Name_options_str  += '<option value="Mwishimo">Mwishimo</option>';
-            Name_options_str  += '<option value="Mzimle">Mzimle</option>';
-            Name_options_str  += '<option value="NAIROBI_HANDLINE_KUSI">NAIROBI_HANDLINE_KUSI</option>';
-            Name_options_str  += '<option value="Namba10">Namba10</option>';
-            Name_options_str  += '<option value="Navy">Navy</option>';
-            Name_options_str  += '<option value="Navy1">Navy1</option>';
-            Name_options_str  += '<option value="Navy_3">Navy_3</option>';
-            Name_options_str  += '<option value="Navy_Chumani">Navy_Chumani</option>';
-            Name_options_str  += '<option value="Ndau Pate">Ndau Pate</option>';
-            Name_options_str  += '<option value="Ndimi Mbili">Ndimi Mbili</option>';
-            Name_options_str  += '<option value="Ndimi mbili">Ndimi mbili</option>';
-            Name_options_str  += '<option value="Ndununi">Ndununi</option>';
-            Name_options_str  += '<option value="Ng&apos;ombeni">Ng&apos;ombeni</option>';
-            Name_options_str  += '<option value="Ngandusi">Ngandusi</option>';
-            Name_options_str  += '<option value="Ngoi">Ngoi</option>';
-            Name_options_str  += '<option value="Ngomeni">Ngomeni</option>';
-            Name_options_str  += '<option value="Ngoro tano">Ngoro tano</option>';
-            Name_options_str  += '<option value="Ngorotano">Ngorotano</option>';
-            Name_options_str  += '<option value="Ngumbi">Ngumbi</option>';
-            Name_options_str  += '<option value="Njonjo Reef">Njonjo Reef</option>';
-            Name_options_str  += '<option value="Nomand">Nomand</option>';
-            Name_options_str  += '<option value="North Kenya Banks">North Kenya Banks</option>';
-            Name_options_str  += '<option value="Noslo">Noslo</option>';
-            Name_options_str  += '<option value="Nyakoo">Nyakoo</option>';
-            Name_options_str  += '<option value="Nyali bridge">Nyali bridge</option>';
-            Name_options_str  += '<option value="Nyari_Kikadini">Nyari_Kikadini</option>';
-            Name_options_str  += '<option value="Nyari_Waa">Nyari_Waa</option>';
-            Name_options_str  += '<option value="Nyoka_Hand gathering_Kiangwe_NEM">Nyoka_Hand gathering_Kiangwe_NEM</option>';
-            Name_options_str  += '<option value="Nyoka_Kaskazi">Nyoka_Kaskazi</option>';
-            Name_options_str  += '<option value="Nyumba Tatu">Nyumba Tatu</option>';
-            Name_options_str  += '<option value="Nyumba Tatu2">Nyumba Tatu2</option>';
-            Name_options_str  += '<option value="Old_port_bridge">Old_port_bridge</option>';
-            Name_options_str  += '<option value="Omar Fedha">Omar Fedha</option>';
-            Name_options_str  += '<option value="Omar Fedhs">Omar Fedhs</option>';
-            Name_options_str  += '<option value="OmarFedhaKusiMonofilament">OmarFedhaKusiMonofilament</option>';
-            Name_options_str  += '<option value="PEMBA_KARIBU_HANDLINE_KASKAZI">PEMBA_KARIBU_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="PEMBA_LA_MBALI_HANDLINE_KASKAZI">PEMBA_LA_MBALI_HANDLINE_KASKAZI</option>';
-            Name_options_str  += '<option value="Padhali Juu">Padhali Juu</option>';
-            Name_options_str  += '<option value="Pae">Pae</option>';
-            Name_options_str  += '<option value="Pae NEM">Pae NEM</option>';
-            Name_options_str  += '<option value="Patiriki">Patiriki</option>';
-            Name_options_str  += '<option value="Patreki">Patreki</option>';
-            Name_options_str  += '<option value="Pemba Chemchem">Pemba Chemchem</option>';
-            Name_options_str  += '<option value="Pengo">Pengo</option>';
-            Name_options_str  += '<option value="Pezali">Pezali</option>';
-            Name_options_str  += '<option value="Pezali NEM">Pezali NEM</option>';
-            Name_options_str  += '<option value="Pipani">Pipani</option>';
-            Name_options_str  += '<option value="Piston">Piston</option>';
-            Name_options_str  += '<option value="Piston2">Piston2</option>';
-            Name_options_str  += '<option value="Pokomomi">Pokomomi</option>';
-            Name_options_str  += '<option value="Pokomoni">Pokomoni</option>';
-            Name_options_str  += '<option value="Porokanya">Porokanya</option>';
-            Name_options_str  += '<option value="Pressgrave Bank">Pressgrave Bank</option>';
-            Name_options_str  += '<option value="Punguvila">Punguvila</option>';
-            Name_options_str  += '<option value="RAS YA NGOME_Scoopnet_AMU_NEM">RAS YA NGOME_Scoopnet_AMU_NEM</option>';
-            Name_options_str  += '<option value="Rasi ya Mwana">Rasi ya Mwana</option>';
-            Name_options_str  += '<option value="Rasini">Rasini</option>';
-            Name_options_str  += '<option value="Rigagana">Rigagana</option>';
-            Name_options_str  += '<option value="Rigagana 2">Rigagana 2</option>';
-            Name_options_str  += '<option value="Roshni">Roshni</option>';
-            Name_options_str  += '<option value="Saa-Jongo">Saa-Jongo</option>';
-            Name_options_str  += '<option value="Sadani">Sadani</option>';
-            Name_options_str  += '<option value="Sadhani">Sadhani</option>';
-            Name_options_str  += '<option value="Sajongo">Sajongo</option>';
-            Name_options_str  += '<option value="Santarita">Santarita</option>';
-            Name_options_str  += '<option value="SantaritaKusiMonofilament">SantaritaKusiMonofilament</option>';
-            Name_options_str  += '<option value="Saresare">Saresare</option>';
-            Name_options_str  += '<option value="Sasi">Sasi</option>';
-            Name_options_str  += '<option value="Sengera">Sengera</option>';
-            Name_options_str  += '<option value="Sengere">Sengere</option>';
-            Name_options_str  += '<option value="Sengere_kubwa">Sengere_kubwa</option>';
-            Name_options_str  += '<option value="Shadhani_Handline_Mngiini">Shadhani_Handline_Mngiini</option>';
-            Name_options_str  += '<option value="Shaka La Kati_Scoopnet_AMU_SEM">Shaka La Kati_Scoopnet_AMU_SEM</option>';
-            Name_options_str  += '<option value="Shaka Panya">Shaka Panya</option>';
-            Name_options_str  += '<option value="Shaka la KIBOKO NEM">Shaka la KIBOKO NEM</option>';
-            Name_options_str  += '<option value="Shaka la Kati_Hand gathering_KIANGWE_NEM">Shaka la Kati_Hand gathering_KIANGWE_NEM</option>';
-            Name_options_str  += '<option value="Shaka la Kiboko">Shaka la Kiboko</option>';
-            Name_options_str  += '<option value="Shaka la kati">Shaka la kati</option>';
-            Name_options_str  += '<option value="Shaka la kiboko_Longline_Kusi [1:Polygon]">Shaka la kiboko_Longline_Kusi [1:Polygon]</option>';
-            Name_options_str  += '<option value="Shaka la wazuka NEM">Shaka la wazuka NEM</option>';
-            Name_options_str  += '<option value="Shaka la wazungu">Shaka la wazungu</option>';
-            Name_options_str  += '<option value="ShakalaMwenyeKusiMonofilament">ShakalaMwenyeKusiMonofilament</option>';
-            Name_options_str  += '<option value="Shakani">Shakani</option>';
-            Name_options_str  += '<option value="Shamba">Shamba</option>';
-            Name_options_str  += '<option value="Shanga">Shanga</option>';
-            Name_options_str  += '<option value="Shanga/Mvumo">Shanga/Mvumo</option>';
-            Name_options_str  += '<option value="Shauri">Shauri</option>';
-            Name_options_str  += '<option value="Shazani NEMSEM">Shazani NEMSEM</option>';
-            Name_options_str  += '<option value="Shebaba NEM SEM">Shebaba NEM SEM</option>';
-            Name_options_str  += '<option value="Shebaba_Kusi/Kaskazi">Shebaba_Kusi/Kaskazi</option>';
-            Name_options_str  += '<option value="Shela Mlangoni">Shela Mlangoni</option>';
-            Name_options_str  += '<option value="Sheli Beach">Sheli Beach</option>';
-            Name_options_str  += '<option value="Sheli Beach (Dibwini, Kibuyuni, Mawowoni, Mnarani)">Sheli Beach (Dibwini, Kibuyuni, Mawowoni, Mnarani)</option>';
-            Name_options_str  += '<option value="Sheli Beach2">Sheli Beach2</option>';
-            Name_options_str  += '<option value="Sheli Beach2 (Dibwini, Kibuyuni, Mawowoni, Mnarani)">Sheli Beach2 (Dibwini, Kibuyuni, Mawowoni, Mnarani)</option>';
-            Name_options_str  += '<option value="Sheli beach (Casino, Namba 10, wimbini, mnarani, Dibwini, Kichwani, Kibuyuni, Mawowoni)">Sheli beach (Casino, Namba 10, wimbini, mnarani, Dibwini, Kichwani, Kibuyuni, Mawowoni)</option>';
-            Name_options_str  += '<option value="Sheli beach (Dibwini, Kibuyuni, Mawowoni, Mnarani)">Sheli beach (Dibwini, Kibuyuni, Mawowoni, Mnarani)</option>';
-            Name_options_str  += '<option value="Sheli beach (Dibwini, Kibuyuni, Mawowoni, Mnarani, Casino)">Sheli beach (Dibwini, Kibuyuni, Mawowoni, Mnarani, Casino)</option>';
-            Name_options_str  += '<option value="Sheli beach (Mawowoni, wimbini, mnarani, Dibwini,Kibuyuni)">Sheli beach (Mawowoni, wimbini, mnarani, Dibwini,Kibuyuni)</option>';
-            Name_options_str  += '<option value="Sheli beach-Casino">Sheli beach-Casino</option>';
-            Name_options_str  += '<option value="Shelibeach">Shelibeach</option>';
-            Name_options_str  += '<option value="Shelibeach (Dibwini, Kichwani, wimbini,  Kibuyuni, Mawowoni, Mnarani)">Shelibeach (Dibwini, Kichwani, wimbini,  Kibuyuni, Mawowoni, Mnarani)</option>';
-            Name_options_str  += '<option value="Shelibeach (Wimbini, Namba 10, mnarani, casino Kichwani, Kibuyuni, mawowoni)">Shelibeach (Wimbini, Namba 10, mnarani, casino Kichwani, Kibuyuni, mawowoni)</option>';
-            Name_options_str  += '<option value="Shertiare">Shertiare</option>';
-            Name_options_str  += '<option value="Shikadabu">Shikadabu</option>';
-            Name_options_str  += '<option value="Shimbi_Kusi/Kaskazi">Shimbi_Kusi/Kaskazi</option>';
-            Name_options_str  += '<option value="Shimbwi NEM SEM">Shimbwi NEM SEM</option>';
-            Name_options_str  += '<option value="Shimbwi_Longline_Kusi">Shimbwi_Longline_Kusi</option>';
-            Name_options_str  += '<option value="Shimo">Shimo</option>';
-            Name_options_str  += '<option value="Shimo kuu">Shimo kuu</option>';
-            Name_options_str  += '<option value="Shimo la Mlango">Shimo la Mlango</option>';
-            Name_options_str  += '<option value="Shimo la Tewa">Shimo la Tewa</option>';
-            Name_options_str  += '<option value="Shimo la mlango">Shimo la mlango</option>';
-            Name_options_str  += '<option value="Shimoni">Shimoni</option>';
-            Name_options_str  += '<option value="Shimoni-Vanga JCMA">Shimoni-Vanga JCMA</option>';
-            Name_options_str  += '<option value="Shinda Kasi">Shinda Kasi</option>';
-            Name_options_str  += '<option value="Shinda kasiNEM/SEM">Shinda kasiNEM/SEM</option>';
-            Name_options_str  += '<option value="Shinda kasi_Kusi_Monofilament">Shinda kasi_Kusi_Monofilament</option>';
-            Name_options_str  += '<option value="ShmolaTongaKusiMonofilament">ShmolaTongaKusiMonofilament</option>';
-            Name_options_str  += '<option value="Shogoni">Shogoni</option>';
-            Name_options_str  += '<option value="Shuhuni">Shuhuni</option>';
-            Name_options_str  += '<option value="Shumbini">Shumbini</option>';
-            Name_options_str  += '<option value="Simba">Simba</option>';
-            Name_options_str  += '<option value="Simbe_Kaskazi">Simbe_Kaskazi</option>';
-            Name_options_str  += '<option value="Simbe_Longline_Kusi">Simbe_Longline_Kusi</option>';
-            Name_options_str  += '<option value="Simii">Simii</option>';
-            Name_options_str  += '<option value="Stara">Stara</option>';
-            Name_options_str  += '<option value="TAMKIBO JCMA">TAMKIBO JCMA</option>';
-            Name_options_str  += '<option value="Takwa">Takwa</option>';
-            Name_options_str  += '<option value="Tambulani">Tambulani</option>';
-            Name_options_str  += '<option value="Tana Delta JCMA">Tana Delta JCMA</option>';
-            Name_options_str  += '<option value="Tanga za nati_Kusi">Tanga za nati_Kusi</option>';
-            Name_options_str  += '<option value="Tano">Tano</option>';
-            Name_options_str  += '<option value="Tanu_Ndambwe_Prawns seine_SEM">Tanu_Ndambwe_Prawns seine_SEM</option>';
-            Name_options_str  += '<option value="Tapatu">Tapatu</option>';
-            Name_options_str  += '<option value="Tauzi">Tauzi</option>';
-            Name_options_str  += '<option value="Tauzi NEM/SEM">Tauzi NEM/SEM</option>';
-            Name_options_str  += '<option value="Tauzi_Kusi_Monofilament">Tauzi_Kusi_Monofilament</option>';
-            Name_options_str  += '<option value="Tawil NEM">Tawil NEM</option>';
-            Name_options_str  += '<option value="Tenewi">Tenewi</option>';
-            Name_options_str  += '<option value="Tenewi Yathi">Tenewi Yathi</option>';
-            Name_options_str  += '<option value="Thauzi">Thauzi</option>';
-            Name_options_str  += '<option value="Thitha">Thitha</option>';
-            Name_options_str  += '<option value="Thitha NEM/SEM">Thitha NEM/SEM</option>';
-            Name_options_str  += '<option value="Tifutifu">Tifutifu</option>';
-            Name_options_str  += '<option value="Tifutifu2">Tifutifu2</option>';
-            Name_options_str  += '<option value="Tita">Tita</option>';
-            Name_options_str  += '<option value="Tiwi Matimboni">Tiwi Matimboni</option>';
-            Name_options_str  += '<option value="Tombola">Tombola</option>';
-            Name_options_str  += '<option value="Tombola NEM">Tombola NEM</option>';
-            Name_options_str  += '<option value="Tombola SEM">Tombola SEM</option>';
-            Name_options_str  += '<option value="Tonesa_Tsunza2">Tonesa_Tsunza2</option>';
-            Name_options_str  += '<option value="Tosha">Tosha</option>';
-            Name_options_str  += '<option value="Tosha NEM SEM">Tosha NEM SEM</option>';
-            Name_options_str  += '<option value="Tosha kiangwe kusi">Tosha kiangwe kusi</option>';
-            Name_options_str  += '<option value="Tosha_Kaskazi">Tosha_Kaskazi</option>';
-            Name_options_str  += '<option value="Tosha_Longline_Kaskazi/Kusi">Tosha_Longline_Kaskazi/Kusi</option>';
-            Name_options_str  += '<option value="Tradewinds">Tradewinds</option>';
-            Name_options_str  += '<option value="Tudor">Tudor</option>';
-            Name_options_str  += '<option value="Tudor-Boyani">Tudor-Boyani</option>';
-            Name_options_str  += '<option value="Tudor/ Shimanzi">Tudor/ Shimanzi</option>';
-            Name_options_str  += '<option value="Tunda Tunda">Tunda Tunda</option>';
-            Name_options_str  += '<option value="Twiga">Twiga</option>';
-            Name_options_str  += '<option value="Ubavu wa mitu_Kaskazi">Ubavu wa mitu_Kaskazi</option>';
-            Name_options_str  += '<option value="Uchoni">Uchoni</option>';
-            Name_options_str  += '<option value="Udongo mkundu_Longline_Kusi">Udongo mkundu_Longline_Kusi</option>';
-            Name_options_str  += '<option value="Ufuoni">Ufuoni</option>';
-            Name_options_str  += '<option value="Unandu">Unandu</option>';
-            Name_options_str  += '<option value="Ungu">Ungu</option>';
-            Name_options_str  += '<option value="Upulu wa Adinani_Longline_Kusi">Upulu wa Adinani_Longline_Kusi</option>';
-            Name_options_str  += '<option value="Upulu wa Mwenye_Longlinr_Kusi">Upulu wa Mwenye_Longlinr_Kusi</option>';
-            Name_options_str  += '<option value="Upulu wa sasi">Upulu wa sasi</option>';
-            Name_options_str  += '<option value="UpuluwaMayongoniKusiMonofilament">UpuluwaMayongoniKusiMonofilament</option>';
-            Name_options_str  += '<option value="UpuluwaMkomaKusiMonofilament">UpuluwaMkomaKusiMonofilament</option>';
-            Name_options_str  += '<option value="Ushauri">Ushauri</option>';
-            Name_options_str  += '<option value="Ute Wa Kati">Ute Wa Kati</option>';
-            Name_options_str  += '<option value="Uzioni">Uzioni</option>';
-            Name_options_str  += '<option value="Vibwengo">Vibwengo</option>';
-            Name_options_str  += '<option value="Vidal Bank">Vidal Bank</option>';
-            Name_options_str  += '<option value="Villas">Villas</option>';
-            Name_options_str  += '<option value="Vipingo(Ndau)">Vipingo(Ndau)</option>';
-            Name_options_str  += '<option value="Waa">Waa</option>';
-            Name_options_str  += '<option value="Waa_coral">Waa_coral</option>';
-            Name_options_str  += '<option value="Waa_likoni">Waa_likoni</option>';
-            Name_options_str  += '<option value="Wanawake_Hand gathering_Kiangwe_NEM">Wanawake_Hand gathering_Kiangwe_NEM</option>';
-            Name_options_str  += '<option value="Wange">Wange</option>';
-            Name_options_str  += '<option value="Wasi">Wasi</option>';
-            Name_options_str  += '<option value="Waungwana NEM SEM">Waungwana NEM SEM</option>';
-            Name_options_str  += '<option value="Wavu wa mawe">Wavu wa mawe</option>';
-            Name_options_str  += '<option value="Wayo_Hand gathering_Kiangwe_SEM">Wayo_Hand gathering_Kiangwe_SEM</option>';
-            Name_options_str  += '<option value="Wayo_Kusi/Kaskazi">Wayo_Kusi/Kaskazi</option>';
-            Name_options_str  += '<option value="Wimbini">Wimbini</option>';
-            Name_options_str  += '<option value="YavalaBwananguoKusiMonofilament">YavalaBwananguoKusiMonofilament</option>';
-            Name_options_str  += '<option value="Yawani">Yawani</option>';
-            Name_options_str  += '<option value="Yawi">Yawi</option>';
-            Name_options_str  += '<option value="Yoweya NEMSEM">Yoweya NEMSEM</option>';
-            Name_options_str  += '<option value="Zijithuni">Zijithuni</option>';
-            Name_options_str  += '<option value="Zilili">Zilili</option>';
-            Name_options_str  += '<option value="Zinyika">Zinyika</option>';
-            Name_options_str  += '<option value="Ziwani">Ziwani</option>';
-            Name_options_str  += '<option value="Ziwayu">Ziwayu</option>';
-            Name_options_str  += '<option value="`Civicon">`Civicon</option>';
-            Name_options_str  += '<option value="dODORI">dODORI</option>';
-            Name_options_str  += '<option value="kamau (1) longline dambwe">kamau (1) longline dambwe</option>';
-            Name_options_str  += '<option value="kitototo longline dambwe">kitototo longline dambwe</option>';
-            sel_Name.innerHTML = Name_options_str;
-            div_Name.appendChild(sel_Name);
-            var lab_Name = document.createElement('div');
-            lab_Name.innerHTML = 'Name';
-            lab_Name.className = 'filterlabel';
-            div_Name.appendChild(lab_Name);
-            var reset_Name = document.createElement('div');
-            reset_Name.innerHTML = 'clear filter';
-            reset_Name.className = 'filterlabel';
-            reset_Name.onclick = function() {
-                var options = document.getElementById("sel_Name").options;
+            var div_County = document.createElement('div');
+            div_County.id = "div_County";
+            div_County.className= "filterselect";
+            document.getElementById("menu").appendChild(div_County);
+            sel_County = document.createElement('select');
+            sel_County.multiple = true;
+            sel_County.size = 10;
+            sel_County.id = "sel_County";
+            var County_options_str = "<option value='' unselected></option>";
+            sel_County.onchange = function(){filterFunc()};
+            County_options_str  += '<option value="KILIFI">KILIFI</option>';
+            County_options_str  += '<option value="KWALE">KWALE</option>';
+            County_options_str  += '<option value="Kilifi">Kilifi</option>';
+            County_options_str  += '<option value="Kwale">Kwale</option>';
+            County_options_str  += '<option value="LAMU">LAMU</option>';
+            County_options_str  += '<option value="Lamu">Lamu</option>';
+            County_options_str  += '<option value="MOMBASA">MOMBASA</option>';
+            County_options_str  += '<option value="Mombasa">Mombasa</option>';
+            County_options_str  += '<option value="TANA RIVER">TANA RIVER</option>';
+            County_options_str  += '<option value="TanaRiver">TanaRiver</option>';
+            sel_County.innerHTML = County_options_str;
+            div_County.appendChild(sel_County);
+            var lab_County = document.createElement('div');
+            lab_County.innerHTML = 'County';
+            lab_County.className = 'filterlabel';
+            div_County.appendChild(lab_County);
+            var reset_County = document.createElement('div');
+            reset_County.innerHTML = 'clear filter';
+            reset_County.className = 'filterlabel';
+            reset_County.onclick = function() {
+                var options = document.getElementById("sel_County").options;
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
                 filterFunc();
             };
-            div_Name.appendChild(reset_Name);
-        resetLabels([layer_JCMACOMBINED_6,layer_MarineLandingSites_14]);
+            div_County.appendChild(reset_County);
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        resetLabels([layer_JCMAs_6,layer_MarineRiparianCounties_8,layer_BMUs_12,layer_MarineLandingSites_13]);
         map.on("zoomend", function(){
-            resetLabels([layer_JCMACOMBINED_6,layer_MarineLandingSites_14]);
+            resetLabels([layer_JCMAs_6,layer_MarineRiparianCounties_8,layer_BMUs_12,layer_MarineLandingSites_13]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_JCMACOMBINED_6,layer_MarineLandingSites_14]);
+            resetLabels([layer_JCMAs_6,layer_MarineRiparianCounties_8,layer_BMUs_12,layer_MarineLandingSites_13]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_JCMACOMBINED_6,layer_MarineLandingSites_14]);
+            resetLabels([layer_JCMAs_6,layer_MarineRiparianCounties_8,layer_BMUs_12,layer_MarineLandingSites_13]);
         });
         </script>
     </body>
