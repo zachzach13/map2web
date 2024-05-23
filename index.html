@@ -8,8 +8,6 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/filter.css">
-<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         #map {
             width: 1505px;
@@ -32,9 +30,6 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/tailDT.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/wNumb.js"></script>
         <script src="data/FishingGroungs_Lamu_2.js"></script>
         <script src="data/FishingGroungs_Mombasa_3.js"></script>
         <script src="data/FishingGroungs_TanaRiver_4.js"></script>
@@ -66,7 +61,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-5.00298313250882,37.985449333578664],[-1.5698901450677494,44.12092942885088]]);
+        }).fitBounds([[-5.00298313250882,37.985449333578664],[-1.5698901450677492,44.12092942885088]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -94,7 +89,6 @@
                                               img_bounds_GEBCO2023CLIP_1,
                                               {pane: 'pane_GEBCO2023CLIP_1'});
         bounds_group.addLayer(layer_GEBCO2023CLIP_1);
-        map.addLayer(layer_GEBCO2023CLIP_1);
         function pop_FishingGroungs_Lamu_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -106,8 +100,7 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Name</th>\
-                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -125,7 +118,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,158,23,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_FishingGroungs_Lamu_2');
@@ -133,7 +126,7 @@
         map.getPane('pane_FishingGroungs_Lamu_2').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_Lamu_2 = new L.geoJson(json_FishingGroungs_Lamu_2, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_FishingGroungs_Lamu_2',
             layerName: 'layer_FishingGroungs_Lamu_2',
             pane: 'pane_FishingGroungs_Lamu_2',
@@ -180,7 +173,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(183,72,75,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_FishingGroungs_Mombasa_3');
@@ -188,7 +181,7 @@
         map.getPane('pane_FishingGroungs_Mombasa_3').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_Mombasa_3 = new L.geoJson(json_FishingGroungs_Mombasa_3, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_FishingGroungs_Mombasa_3',
             layerName: 'layer_FishingGroungs_Mombasa_3',
             pane: 'pane_FishingGroungs_Mombasa_3',
@@ -228,7 +221,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(231,113,72,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_FishingGroungs_TanaRiver_4');
@@ -236,7 +229,7 @@
         map.getPane('pane_FishingGroungs_TanaRiver_4').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_TanaRiver_4 = new L.geoJson(json_FishingGroungs_TanaRiver_4, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_FishingGroungs_TanaRiver_4',
             layerName: 'layer_FishingGroungs_TanaRiver_4',
             pane: 'pane_FishingGroungs_TanaRiver_4',
@@ -298,7 +291,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(232,113,141,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_FishingGroungs_Kwale_5');
@@ -306,7 +299,7 @@
         map.getPane('pane_FishingGroungs_Kwale_5').style['mix-blend-mode'] = 'normal';
         var layer_FishingGroungs_Kwale_5 = new L.geoJson(json_FishingGroungs_Kwale_5, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_FishingGroungs_Kwale_5',
             layerName: 'layer_FishingGroungs_Kwale_5',
             pane: 'pane_FishingGroungs_Kwale_5',
@@ -332,12 +325,10 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Name</th>\
-                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Coverage</th>\
-                        <td>' + (feature.properties['Coverage'] !== null ? autolinker.link(feature.properties['Coverage'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Coverage</strong><br />' + (feature.properties['Coverage'] !== null ? autolinker.link(feature.properties['Coverage'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -393,7 +384,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_CoralReef_7');
@@ -401,7 +392,7 @@
         map.getPane('pane_CoralReef_7').style['mix-blend-mode'] = 'normal';
         var layer_CoralReef_7 = new L.geoJson(json_CoralReef_7, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_CoralReef_7',
             layerName: 'layer_CoralReef_7',
             pane: 'pane_CoralReef_7',
@@ -421,8 +412,7 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">County</th>\
-                        <td>' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>County</strong><br />' + (feature.properties['county'] !== null ? autolinker.link(feature.properties['county'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -440,7 +430,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(204,204,204,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_MarineRiparianCounties_8');
@@ -448,7 +438,7 @@
         map.getPane('pane_MarineRiparianCounties_8').style['mix-blend-mode'] = 'normal';
         var layer_MarineRiparianCounties_8 = new L.geoJson(json_MarineRiparianCounties_8, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_MarineRiparianCounties_8',
             layerName: 'layer_MarineRiparianCounties_8',
             pane: 'pane_MarineRiparianCounties_8',
@@ -614,7 +604,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(178,223,138,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_Mangrooves_11');
@@ -622,7 +612,7 @@
         map.getPane('pane_Mangrooves_11').style['mix-blend-mode'] = 'normal';
         var layer_Mangrooves_11 = new L.geoJson(json_Mangrooves_11, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Mangrooves_11',
             layerName: 'layer_Mangrooves_11',
             pane: 'pane_Mangrooves_11',
@@ -642,16 +632,13 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">County</th>\
-                        <td>' + (feature.properties['County'] !== null ? autolinker.link(feature.properties['County'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['County'] !== null ? autolinker.link(feature.properties['County'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Sub County</th>\
-                        <td>' + (feature.properties['Sub County'] !== null ? autolinker.link(feature.properties['Sub County'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Sub County'] !== null ? autolinker.link(feature.properties['Sub County'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">BMU Name</th>\
-                        <td>' + (feature.properties['BMU Name'] !== null ? autolinker.link(feature.properties['BMU Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['BMU Name'] !== null ? autolinker.link(feature.properties['BMU Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -806,7 +793,7 @@
                 this._div.innerHTML = '<h2>KEMFSED_JCMA Webmap</h2>';
             };
             title.addTo(map);
-            var abstract = new L.Control({'position':'topleft'});
+            var abstract = new L.Control({'position':'bottomleft'});
             abstract.onAdd = function (map) {
                 this._div = L.DomUtil.create('div',
                 'leaflet-control abstract');
@@ -856,180 +843,6 @@
               addLabel(layer, i);
               i++;
         });
-        var mapDiv = document.getElementById('map');
-        var row = document.createElement('div');
-        row.className="row";
-        row.id="all";
-        row.style.height = "100%";
-        var col1 = document.createElement('div');
-        col1.className="col9";
-        col1.id = "mapWindow";
-        col1.style.height = "99%";
-        col1.style.width = "80%";
-        col1.style.display = "inline-block";
-        var col2 = document.createElement('div');
-        col2.className="col3";
-        col2.id = "menu";
-        col2.style.display = "inline-block";
-        mapDiv.parentNode.insertBefore(row, mapDiv);
-        document.getElementById("all").appendChild(col1);
-        document.getElementById("all").appendChild(col2);
-        col1.appendChild(mapDiv)
-        var Filters = {"County": "str"};
-        function filterFunc() {
-          map.eachLayer(function(lyr){
-          if ("options" in lyr && "dataVar" in lyr["options"]){
-            features = this[lyr["options"]["dataVar"]].features.slice(0);
-            try{
-              for (key in Filters){
-                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
-                if (Filters[key] == "str" || Filters[key] == "bool"){
-                  var selection = [];
-                  var options = document.getElementById("sel_" + keyS).options
-                  for (var i=0; i < options.length; i++) {
-                    if (options[i].selected) selection.push(options[i].value);
-                  }
-                    try{
-                      if (key in features[0].properties){
-                        for (i = features.length - 1;
-                          i >= 0; --i){
-                          if (selection.indexOf(
-                          features[i].properties[key])<0
-                          && selection.length>0) {
-                          features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                  }
-                }
-                if (Filters[key] == "int"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (parseInt(features[i].properties[key])
-                          < sliderVals[0]
-                          || parseInt(features[i].properties[key])
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "real"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (features[i].properties[key]
-                          < sliderVals[0]
-                          || features[i].properties[key]
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "date"
-                  || Filters[key] == "datetime"
-                  || Filters[key] == "time"){
-                  try{
-                    if (key in features[0].properties){
-                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
-                      startdate = document.getElementById("dat_" +
-                        HTMLkey + "_date1").value.replace(" ", "T");
-                      enddate = document.getElementById("dat_" +
-                        HTMLkey + "_date2").value.replace(" ", "T");
-                      for (i = features.length - 1; i >= 0; --i){
-                        if (features[i].properties[key] < startdate
-                          || features[i].properties[key] > enddate){
-                          features.splice(i,1);
-                        }
-                      }
-                    }
-                  } catch(err){
-                  }
-                }
-              }
-            } catch(err){
-            }
-          this[lyr["options"]["layerName"]].clearLayers();
-          this[lyr["options"]["layerName"]].addData(features);
-        var i = 0;
-        layer_JCMAs_6.eachLayer(function(layer) {
-            var context = {
-                feature: layer.feature,
-                variables: {}
-            };
-            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 13pt; font-family: \'Arial Rounded MT Bold\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_JCMAs_6'});
-            labels.push(layer);
-            totalMarkers += 1;
-              layer.added = true;
-              addLabel(layer, i);
-              i++;
-        });
-        var i = 0;
-        layer_MarineRiparianCounties_8.eachLayer(function(layer) {
-            var context = {
-                feature: layer.feature,
-                variables: {}
-            };
-            layer.bindTooltip((layer.feature.properties['county'] !== null?String('<div style="color: #323232; font-size: 14pt; font-family: \'BellTopo Sans\', sans-serif;">' + layer.feature.properties['county']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MarineRiparianCounties_8'});
-            labels.push(layer);
-            totalMarkers += 1;
-              layer.added = true;
-              addLabel(layer, i);
-              i++;
-        });
-          }
-          })
-        }
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_County = document.createElement('div');
-            div_County.id = "div_County";
-            div_County.className= "filterselect";
-            document.getElementById("menu").appendChild(div_County);
-            sel_County = document.createElement('select');
-            sel_County.multiple = true;
-            sel_County.size = 10;
-            sel_County.id = "sel_County";
-            var County_options_str = "<option value='' unselected></option>";
-            sel_County.onchange = function(){filterFunc()};
-            County_options_str  += '<option value="KILIFI">KILIFI</option>';
-            County_options_str  += '<option value="KWALE">KWALE</option>';
-            County_options_str  += '<option value="Kilifi">Kilifi</option>';
-            County_options_str  += '<option value="Kwale">Kwale</option>';
-            County_options_str  += '<option value="LAMU">LAMU</option>';
-            County_options_str  += '<option value="Lamu">Lamu</option>';
-            County_options_str  += '<option value="MOMBASA">MOMBASA</option>';
-            County_options_str  += '<option value="Mombasa">Mombasa</option>';
-            County_options_str  += '<option value="TANA RIVER">TANA RIVER</option>';
-            County_options_str  += '<option value="TanaRiver">TanaRiver</option>';
-            sel_County.innerHTML = County_options_str;
-            div_County.appendChild(sel_County);
-            var lab_County = document.createElement('div');
-            lab_County.innerHTML = 'County';
-            lab_County.className = 'filterlabel';
-            div_County.appendChild(lab_County);
-            var reset_County = document.createElement('div');
-            reset_County.innerHTML = 'clear filter';
-            reset_County.className = 'filterlabel';
-            reset_County.onclick = function() {
-                var options = document.getElementById("sel_County").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_County.appendChild(reset_County);
         L.ImageOverlay.include({
             getBounds: function () {
                 return this._bounds;
